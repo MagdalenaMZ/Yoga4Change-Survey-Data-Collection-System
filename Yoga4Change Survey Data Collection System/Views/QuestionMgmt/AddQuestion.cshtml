@@ -1,0 +1,26 @@
+﻿
+@model Yoga4Change_Survey_Data_Collection_System.Models.Question
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Question</title>
+</head>
+<body>
+    <form asp-action="AddQuestion" method="post">
+        <p>
+            <label asp-for="Content">Content of the question: </label><br />
+            <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" ></textarea>
+        </p>
+        <p>
+            <label asp-for="Type">Type of the question: </label>
+            <input asp-for="Type" />
+        </p>
+        </p>
+        <button type="submit">Add question</button>
+    </form>
+</body>
+</html>
