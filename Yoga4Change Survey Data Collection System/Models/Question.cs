@@ -10,5 +10,8 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         public int ID { get; set; }
         public string Content  { get; set; }
         public string Type { get; set; }
+        public string Required { get; set; }
+        public string Response { get; set; }
+        public string Answer { get; set; }
     }
 }

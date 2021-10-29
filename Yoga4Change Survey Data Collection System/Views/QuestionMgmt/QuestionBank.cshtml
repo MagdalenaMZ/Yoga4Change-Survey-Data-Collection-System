@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<Yoga4Change_Survey_Data_Collection_System.Models.Question>
+@{
+    ViewBag.Title = "QuestionBank";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Question Bank</title>
+</head>
+<body>
+
+
+    <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="AddQuestion">Add Question</a></button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Content</th>
+                <th>Type</th>
+                <th>If required</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+            <tr>
+                <td>@r.ID</td>
+                <td>@r.Content</td>
+                <td>@r.Type</td>
+                <td>@r.Required</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

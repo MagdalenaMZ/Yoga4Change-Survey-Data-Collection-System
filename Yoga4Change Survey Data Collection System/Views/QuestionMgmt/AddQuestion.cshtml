@@ -10,17 +10,87 @@
     <title>Add Question</title>
 </head>
 <body>
-    <form asp-action="AddQuestion" method="post">
+    <form asp-action="AddQuestion" method="post" class="center">
         <p>
             <label asp-for="Content">Content of the question: </label><br />
-            <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" ></textarea>
+            <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
         </p>
         <p>
-            <label asp-for="Type">Type of the question: </label>
-            <input asp-for="Type" />
+            <h3>Choose a question type:</h3>
+            <label asp-for="Type">Open ended</label>
+            <input type="radio" asp-for="Type" value="Open_ended" required="required" onclick="Disactivate()"/><br />
+
+            <label asp-for="Type">Yes/No</label>
+            <input type="radio" asp-for="Type" value="Yes/No" onclick="Disactivate()"/><br />
+
+            <label asp-for="Type">Date/Time</label>
+            <input type="radio" asp-for="Type" value="Date/Time" onclick="Disactivate()"/><br />
+
+            <label asp-for="Type">Multiple choice</label>
+            <input type="radio" asp-for="Type" value="Multiple_choice" onclick="Activate1()" /><br />
+
+            <label asp-for="Type">Dropdown</label>
+            <input type="radio" asp-for="Type" value="Dropdown" onclick="Activate2()" /><br />
+
+            <label asp-for="Type">Likert Scale</label>
+            <input type="radio" asp-for="Type" value="Likert_scale" onclick="Activate3()" /><br />
         </p>
+        <p>
+            <h3>Choose if the question will be required to answer on the survey or will be optional:</h3>
+            <label asp-for="Required">Required</label>
+            <input type="radio" asp-for="Required" value="Required" required="required" /><br />
+            <label asp-for="Required">Optional</label>
+            <input type="radio" asp-for="Required" value="Optional" /><br />
         </p>
+        <div id="show1" class="hide">
+            <h3>Enter each response option below.</h3>
+            <input type="text" asp-for="Response" /><br />
+
+            <h3>How many answers can be chosen for that question</h3>
+            <label asp-for="Answer">Just one answer (Radio Button)</label>
+            <input type="radio" asp-for="Answer" value="One" required="required" /><br />
+            <label asp-for="Answer">Multiple answers (Checkbox)</label>
+            <input type="radio" asp-for="Answer" value="Multiple" /><br />
+        </div><br />
+              <div id="show2" class="hide">
+                  <h3>Enter each response option below.</h3>
+                  <input type="text" asp-for="Response" />
+              </div><br />
+                    <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
         <button type="submit">Add question</button>
     </form>
+
+    <style>
+        .hide{
+            display:none;
+        }
+        .center {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+    </style>
+
+        <script>
+            function Activate1() {
+                document.getElementById("show2").classList.add("hide");
+                document.getElementById("show1").classList.remove("hide");
+            }
+            function Activate2() {
+                document.getElementById("show1").classList.add("hide");
+                document.getElementById("show2").classList.remove("hide");
+            }
+            function Activate3() {
+                document.getElementById("show1").classList.add("hide");
+                document.getElementById("show2").classList.remove("hide");
+            }
+            function Disactivate() {
+                document.getElementById("show1").classList.add("hide");
+                document.getElementById("show2").classList.add("hide");
+            }
+          
+        </script>
+    
 </body>
 </html>
