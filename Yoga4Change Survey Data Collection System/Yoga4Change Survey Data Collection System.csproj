@@ -5,4 +5,8 @@
     <RootNamespace>Yoga4Change_Survey_Data_Collection_System</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\lib\Images\y4c-logo.png" />
+  </ItemGroup>
+
 </Project>

@@ -9,27 +9,26 @@ using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
-    public class ResponsesMgmtController : Controller
+    public class ResponsesController : Controller
     {
-        private readonly ILogger<ResponsesMgmtController> _logger;
+        private readonly ILogger<ResponsesController> _logger;
 
-        public ResponsesMgmtController(ILogger<ResponsesMgmtController> logger)
+        public ResponsesController(ILogger<ResponsesController> logger)
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+        public IActionResult CompleteSurveys()
         {
-            return View();
+            return View("~/Views/Responses/CompleteSurveys.cshtml");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Dashboard()
         {
-            return View();
+            return View("~/Views/Responses/Dashboard.cshtml");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Responses()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

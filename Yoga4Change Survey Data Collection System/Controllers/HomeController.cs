@@ -20,7 +20,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("~/Views/Responses/Dashboard.cshtml");
         }
 
         public IActionResult Privacy()
@@ -35,4 +35,4 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         }
     }
 }
-//Test comment from Harry
+
