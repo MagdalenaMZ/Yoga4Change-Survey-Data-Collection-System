@@ -1,7 +1,17 @@
-﻿
+﻿@model List<Survey>
 @{
     ViewData["Title"] = "Surveys";
 }
 
 <h1>Surveys</h1>
 
+@foreach (var s in Model)
+{
+    <span>@s.ID</span><br />
+    <span>@s.Name</span><br />
+    <span>@s.Questions.ID</span><br />
+    <span>@s.Questions.Content</span><br />
+    <span>@s.Questions.Type</span><br />
+    <span>@s.Questions.Required</span><br />
+    <span>@s.Published</span>
+}
