@@ -17,45 +17,38 @@
         </p>
         <p>
             <h3>Choose a question type:</h3>
-            <label asp-for="Type">Open ended</label>
-            <input type="radio" asp-for="Type" value="Open_ended" required="required" onclick="Disactivate()"/><br />
+            <label asp-for="TypeId">Open ended</label>
+            <input type="radio" asp-for="TypeId" value="1" required="required" onclick="Disactivate()" /><br />
 
-            <label asp-for="Type">Yes/No</label>
-            <input type="radio" asp-for="Type" value="Yes/No" onclick="Disactivate()"/><br />
+            <label asp-for="TypeId">Yes/No</label>
+            <input type="radio" asp-for="TypeId" value="2" onclick="Disactivate()" /><br />
 
-            <label asp-for="Type">Date/Time</label>
-            <input type="radio" asp-for="Type" value="Date/Time" onclick="Disactivate()"/><br />
+            <label asp-for="TypeId">Date/Time</label>
+            <input type="radio" asp-for="TypeId" value="3" onclick="Disactivate()" /><br />
 
-            <label asp-for="Type">Multiple choice</label>
-            <input type="radio" asp-for="Type" value="Multiple_choice" onclick="Activate1()" /><br />
+            <label asp-for="TypeId">Radio Button</label>
+            <input type="radio" asp-for="TypeId" value="4" onclick="Activate1()" /><br />
 
-            <label asp-for="Type">Dropdown</label>
-            <input type="radio" asp-for="Type" value="Dropdown" onclick="Activate2()" /><br />
+            <label asp-for="TypeId">Checkbox</label>
+            <input type="radio" asp-for="TypeId" value="5" onclick="Activate1()" /><br />
 
-            <label asp-for="Type">Likert Scale</label>
-            <input type="radio" asp-for="Type" value="Likert_scale" onclick="Activate3()" /><br />
+            <label asp-for="TypeId">Dropdown</label>
+            <input type="radio" asp-for="TypeId" value="6" onclick="Activate2()" /><br />
+
+            <label asp-for="TypeId">Likert Scale</label>
+            <input type="radio" asp-for="TypeId" value="7" onclick="Activate3()" /><br />
         </p>
-        <p>
-            <h3>Choose if the question will be required to answer on the survey or will be optional:</h3>
-            <label asp-for="Required">Required</label>
-            <input type="radio" asp-for="Required" value="Required" required="required" /><br />
-            <label asp-for="Required">Optional</label>
-            <input type="radio" asp-for="Required" value="Optional" /><br />
-        </p>
+
         <div id="show1" class="hide">
             <h3>Enter each response option below.</h3>
-            <input type="text" asp-for="Response" /><br />
-
-            <h3>How many answers can be chosen for that question</h3>
-            <label asp-for="Answer">Just one answer (Radio Button)</label>
-            <input type="radio" asp-for="Answer" value="One" required="required" /><br />
-            <label asp-for="Answer">Multiple answers (Checkbox)</label>
-            <input type="radio" asp-for="Answer" value="Multiple" /><br />
+            <input type="text"  /><br />
         </div><br />
-              <div id="show2" class="hide">
+
+        <div id="show2" class="hide">
                   <h3>Enter each response option below.</h3>
-                  <input type="text" asp-for="Response" />
-              </div><br />
+                  <input type="text"  />
+        </div><br />
+
                     <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
         <button type="submit">Add question</button>
     </form>

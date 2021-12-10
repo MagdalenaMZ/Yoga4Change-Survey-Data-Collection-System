@@ -17,11 +17,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Content</th>
-                <th>Type</th>
-                <th>If required</th>
-                <th>Actions</th>
+                <th class="text-center">ID</th>
+                <th class="text-center">Content</th>
+                <th class="text-center">Type</th>
+                <th class="text-center">Created</th>
+                <th class="text-center">Modfied</th>
+                <th colspan="3" class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -30,8 +31,12 @@
             <tr>
                 <td>@r.ID</td>
                 <td>@r.Content</td>
-                <td>@r.Type</td>
-                <td>@r.Required</td>
+                <td>@r.TypeId</td>
+                <td>@r.CreatedAt</td>
+                <td>@r.LastModifiedAt</td>
+                <td>Edit</td>
+                <td>Duplicate</td>
+                <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = r.ID}, new{@class = "btn btn-danger"})</td>
             </tr>
             }
         </tbody>

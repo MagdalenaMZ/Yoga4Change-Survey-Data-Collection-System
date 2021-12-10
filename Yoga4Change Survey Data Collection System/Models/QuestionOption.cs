@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yoga4Change_Survey_Data_Collection_System.Models.Enums;
-
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Models
 {
-    public class Question
+    public class QuestionOption
     {
-        public Question()
+        public QuestionOption()
         {
             CreatedAt = DateTime.UtcNow;
             LastModifiedAt = DateTime.UtcNow;
         }
-
         public int ID { get; set; }
 
-        public string Content  { get; set; }
-
-        public QuestionType TypeId { get; set; }
+        public string Content { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset LastModifiedAt { get; set; }
 
-        public virtual List<QuestionOption> Options{ get; set; }
+        public int QuestionId { get; set; }
     }
 }
