@@ -21,5 +21,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         public DateTimeOffset LastModifiedAt { get; set; }
 
         public int QuestionId { get; set; }
+
+        public Question Question { get; set; }
     }
 }

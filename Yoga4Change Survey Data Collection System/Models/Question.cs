@@ -23,6 +23,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
 
         public DateTimeOffset LastModifiedAt { get; set; }
 
-        public virtual List<QuestionOption> Options{ get; set; }
+       public ICollection<QuestionOption> Options { get; set; }
     }
 }

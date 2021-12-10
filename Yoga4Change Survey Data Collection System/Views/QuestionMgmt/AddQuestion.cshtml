@@ -11,11 +11,11 @@
 </head>
 <body>
     <form asp-action="AddQuestion" method="post" class="center">
-        <p>
-            <label asp-for="Content">Content of the question: </label><br />
+        <p style="text-align:center">
+            <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
             <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
         </p>
-        <p>
+        <div style="text-align:center">
             <h3>Choose a question type:</h3>
             <label asp-for="TypeId">Open ended</label>
             <input type="radio" asp-for="TypeId" value="1" required="required" onclick="Disactivate()" /><br />
@@ -27,30 +27,28 @@
             <input type="radio" asp-for="TypeId" value="3" onclick="Disactivate()" /><br />
 
             <label asp-for="TypeId">Radio Button</label>
-            <input type="radio" asp-for="TypeId" value="4" onclick="Activate1()" /><br />
+            <input type="radio" asp-for="TypeId" value="4" onclick="Activate()" /><br />
 
             <label asp-for="TypeId">Checkbox</label>
-            <input type="radio" asp-for="TypeId" value="5" onclick="Activate1()" /><br />
+            <input type="radio" asp-for="TypeId" value="5" onclick="Activate()" /><br />
 
             <label asp-for="TypeId">Dropdown</label>
-            <input type="radio" asp-for="TypeId" value="6" onclick="Activate2()" /><br />
+            <input type="radio" asp-for="TypeId" value="6" onclick="Activate()" /><br />
 
             <label asp-for="TypeId">Likert Scale</label>
-            <input type="radio" asp-for="TypeId" value="7" onclick="Activate3()" /><br />
-        </p>
+            <input type="radio" asp-for="TypeId" value="7" onclick="Activate()" /><br />
+        </div>
 
-        <div id="show1" class="hide">
-            <h3>Enter each response option below.</h3>
-            <input type="text"  /><br />
-        </div><br />
 
-        <div id="show2" class="hide">
+              <div id="show2" class="hide" style="text-align:center">
                   <h3>Enter each response option below.</h3>
-                  <input type="text"  />
-        </div><br />
+                  <input type="text" /><br /><br />
+                  <p id="next"><input type="text" /><br /><br /></p>
+                  <button onclick="newrow()">Add Next Response</button>
+              </div><br />
 
-                    <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-        <button type="submit">Add question</button>
+        <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+        <button type="submit">Save question</button>
     </form>
 
     <style>
@@ -59,28 +57,27 @@
         }
         .center {
             margin: auto;
-            width: 50%;
-            border: 3px solid green;
+            width: 40%;
+            border: 6px solid green;
             padding: 10px;
         }
     </style>
 
         <script>
-            function Activate1() {
-                document.getElementById("show2").classList.add("hide");
-                document.getElementById("show1").classList.remove("hide");
-            }
-            function Activate2() {
-                document.getElementById("show1").classList.add("hide");
-                document.getElementById("show2").classList.remove("hide");
-            }
-            function Activate3() {
-                document.getElementById("show1").classList.add("hide");
+
+            function Activate() {
                 document.getElementById("show2").classList.remove("hide");
             }
             function Disactivate() {
-                document.getElementById("show1").classList.add("hide");
                 document.getElementById("show2").classList.add("hide");
+            }
+
+            function newrow() {
+                document.getElementById("next").innerHTML += "<p><input type='text'><button onclick='del(this)'>X</button></p>";
+            }
+
+            function del(field) {
+                field.parentNode.outerHTML = "";
             }
           
         </script>
