@@ -19,7 +19,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult QuestionBank()
         {
             return View();
         }
@@ -31,4 +31,3 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         }
     }
 }
-
