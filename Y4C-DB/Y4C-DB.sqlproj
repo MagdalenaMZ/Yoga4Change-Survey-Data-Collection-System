@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\tables\Questions.sql" />
+    <Build Include="dbo\tables\QuestionsOptions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Y4C-DB.refactorlog" />
