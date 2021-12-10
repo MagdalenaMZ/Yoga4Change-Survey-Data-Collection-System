@@ -1,37 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using Yoga4Change_Survey_Data_Collection_System.Models;
+using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
     public class ResponsesController : Controller
     {
-        private readonly ILogger<ResponsesController> _logger;
+        private readonly IResponseRepository _responseRepository;
+        public ResponsesController(IResponseRepository responseRepository)
+        {
+            _responseRepository = responseRepository;
+        }
+        public ViewResult Dashboard()
+        {
+            return View();
+        }
+        public async Task<ViewResult> CompleteSurveys()
+        {
+            var responseList = await _responseRepository.GetResponseListAsync();
+            return View(responseList);
+            
+        }
 
-        public ResponsesController(ILogger<ResponsesController> logger)
-        {
-            _logger = logger;
-        }
-        public IActionResult CompleteSurveys()
-        {
-            return View("~/Views/Responses/CompleteSurveys.cshtml");
-        }
-
-        public IActionResult Dashboard()
-        {
-            return View("~/Views/Responses/Dashboard.cshtml");
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Responses()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
 

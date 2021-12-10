@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.EntityFramework
 {
@@ -20,10 +17,8 @@ namespace Yoga4Change_Survey_Data_Collection_System.EntityFramework
         }
 
 
-       /* public DbSet<Question> Questions
-        {
-
-        }
-       */
+        
+         public DbSet<Response> Responses { get; set; }
+        
     }
 }

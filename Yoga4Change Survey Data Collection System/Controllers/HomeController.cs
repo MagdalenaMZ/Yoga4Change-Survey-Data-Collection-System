@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
@@ -20,7 +16,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 
         public IActionResult Index()
         {
-            return View("~/Views/Responses/Dashboard.cshtml");
+            return View();
         }
 
         public IActionResult Privacy()

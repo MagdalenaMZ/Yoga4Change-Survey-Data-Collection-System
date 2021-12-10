@@ -1,179 +1,49 @@
-﻿@{
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    // ViewData["Title"] = "Privacy Policy";
-}
-
-<html>
-<BODY>
-    <div style="margin-left">
-        <label for="prepost">Select Pre or Post:</label>
-        <select class="filterdropdown">
-            <option value="Pre-Surveys">Pre-Surveys</option>
-            <option value="Post-Surveys">Post-Surveys</option>
-        </select>
-        <label for="facility">Select Facility:</label>
-        <select class="filterdropdown">
-            <option value="facility">facility type</option>
-        </select>
-        <label for="start">Start date:</label>
-
-        <input type="date" id="start" name="survey-start"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
-        <label for="start">End date:</label>
-
-        <input type="date" id="end" name="survey-end"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
-        <button>Export</button>
-    </div>
-    <TABLE class="display nowrap" border=1 align=left cellpadding=1 cellspacing=1>
-        <TR>
-            <TD>StartDate</TD>
-            <TD>EndDate</TD>
-            <TD>Status</TD>
-            <TD>IPAddress</TD>
-            <TD>Progress</TD>
-            <TD>Duration (in seconds)</TD>
-            <TD>Finished</TD>
-            <TD>RecordedDate</TD>
-            <TD>ResponseId</TD>
-            <TD>RecipientLastName</TD>
-            <TD>RecipientFirstName</TD>
-            <TD>RecipientEmail</TD>
-            <TD>ExternalReference</TD>
-            <TD>LocationLatitude</TD>
-            <TD>LocationLongitude</TD>
-            <TD>DistributionChannel</TD>
-            <TD>UserLanguage</TD>
-            <TD>Q35</TD>
-            <TD>Q36</TD>
-            <TD>Q40</TD>
-            <TD>Q39</TD>
-           
-        </TR>
-        <TR>
-            <TD>Start Date</TD>
-            <TD>End Date</TD>
-            <TD>Response Type</TD>
-            <TD>IP Address</TD>
-            <TD>Progress</TD>
-            <TD>Duration (in seconds)</TD>
-            <TD>Finished</TD>
-            <TD>Recorded Date</TD>
-            <TD>Response ID</TD>
-            <TD>Recipient Last Name</TD>
-            <TD>Recipient First Name</TD>
-            <TD>Recipient Email</TD>
-            <TD>External Data Reference</TD>
-            <TD>Location Latitude</TD>
-            <TD>Location Longitude</TD>
-            <TD>Distribution Channel</TD>
-            <TD>User Language</TD>
-            <TD>Last Name</TD>
-            <TD>Last 4 digits of cell phone number:</TD>
-            <TD>Which posttest is this, for this participant? (i.e., how many rounds of programming has this participant completed)If you don't know, please leave blank.</TD>
-            <TD>Facility (South Florida Facility = SF; Tampa Facility = T; Orlando Facility = O)</TD>
-            <TD>Facility if not previously listed</TD>
-            
-        </TR>
-        <TR>
-            <TD>########</TD>
-            <TD>########</TD>
-            <TD>IP Address</TD>
-            <TD>128.227.113.209</TD>
-            <TD>100</TD>
-            <TD>485</TD>
-            <TD>True</TD>
-            <TD>########</TD>
-            <TD>R_1NzhIptmWEQXeIJ</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>37.75101</TD>
-            <TD>-97.822</TD>
-            <TD>anonymous</TD>
-            <TD>EN</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>Posttest #1 (first round of program participation)</TD>
-            <TD>(SF) Evolutions Treatment Center</TD>
-            <TD>Evolutions</TD>
-        </TR>
-        <TR>
-            <TD>########</TD>
-            <TD>########</TD>
-            <TD>IP Address</TD>
-            <TD>108.200.16.125</TD>
-            <TD>100</TD>
-            <TD>86619</TD>
-            <TD>True</TD>
-            <TD>########</TD>
-            <TD>R_vfssbdfmkxew6zf</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>26.4122</TD>
-            <TD>-80.0875</TD>
-            <TD>anonymous</TD>
-            <TD>EN</TD>
-            <TD>&nbsp;</TD>
-            <TD>&nbsp;</TD>
-            <TD>Posttest #1 (first round of program participation)</TD>
-            <TD>(SF) Wellness Resource Center</TD>
-            <TD>Wellness Resource Center</TD>
-        </TR>
-        
-        <TR>
-    </TABLE>
-</BODY>
-</HTML>
-<link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="//cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-
-@section scripts{
-    <script src="//code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="//cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-    <script src="//cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            
-                    },
-                    'columns': [
-                        { 'data': 'StartDate' },
-                        { 'data': 'EndDate' },
-                        { 'data': 'Status' },
-                        { 'data': 'IPAddress' },
-                        { 'data': 'Progress' },
-                        { 'data': 'Duration (in seconds)' },
-                        { 'data': 'Finished' },
-                        { 'data': 'RecordedDate' },
-                        { 'data': 'ResponseId' },
-                        { 'data': 'Progress' },
-                        { 'data': 'RecipientLastName' },
-                        { 'data': 'RecipientFirstName' },
-                        { 'data': 'RecipientEmail' },
-                        { 'data': 'ExternalReference' },
-                        { 'data': 'LocationLatitude' },
-                        { 'data': 'LocationLongitude' },
-                        { 'data': 'DistributionChannel' },
-                        { 'data': 'UserLanguage' },
-                        { 'data': 'Q35' },
-                        { 'data': 'Q36' },
-                        { 'data': 'Q40' },
-                        { 'data': 'Q39' }
-                    ]
-                
-        });
-    </script>
-
+﻿@model List<Yoga4Change_Survey_Data_Collection_System.Models.Response>
+@{
+    ViewBag.Title = "CompleteSurveys";
 }
 
 
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
+<body>
+    <table id="example" class="table table-striped table-bordered dt-responsive" style="table-layout: auto;width: 100%;" cellspacing="0">
+        <thead>
+            <tr>
+                <th><label asp-for="@Model.FirstOrDefault().Response_ID"></label></th>
+                <th><label asp-for="@Model.FirstOrDefault().Question_ID"></label></th>
+                <th><label asp-for="@Model.FirstOrDefault().Survey_ID"></label></th>
+                <th><label asp-for="@Model.FirstOrDefault().Response_Content"></label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var response in Model)
+            {
+                <tr>
+                    <td>@response.Response_ID</td>
+                    <td>@response.Question_ID</td>
+                    <td>@response.Survey_ID</td>
+                    <td>@response.Response_Content</td>
+                </tr>
+            }
+
+</tbody>
+    </table>
+</body>
+<script>
+    $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel'
+        ]
+    });
+</script>
