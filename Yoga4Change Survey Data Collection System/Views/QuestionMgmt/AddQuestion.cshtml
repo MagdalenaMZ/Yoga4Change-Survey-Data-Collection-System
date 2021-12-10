@@ -42,8 +42,8 @@
 
               <div id="show2" class="hide" style="text-align:center">
                   <h3>Enter each response option below.</h3>
-                  <input type="text" /><br /><br />
-                  <p id="next"><input type="text" /><br /><br /></p>
+                  <input type="text" required="required"/><br /><br />
+                  <p id="next"><input type="text" required="required"/><br /><br /></p>
                   <button onclick="newrow()">Add Next Response</button>
               </div><br />
 
@@ -73,7 +73,7 @@
             }
 
             function newrow() {
-                document.getElementById("next").innerHTML += "<p><input type='text'><button onclick='del(this)'>X</button></p>";
+                document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button onclick='del(this)'>X</button></p>";
             }
 
             function del(field) {
