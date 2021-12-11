@@ -1,0 +1,30 @@
+﻿
+@model Yoga4Change_Survey_Data_Collection_System.Models.Survey
+@{
+    //Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create Survey</title>
+</head>
+<body>
+    <form asp-action="CreateSurvey" method="post">
+        <p>
+            <label asp-for="Name">Name of the survey: </label><br />
+            <input type ="text" id="name" name="name"/>
+        </p>
+        <p>
+            Select questions to add to the survey <br />
+            <input type="checkbox" id="question1" name="question1" value="Question 1">
+            <label for="question1"> Question 1</label><br>
+            <input type="checkbox" id="question2" name="question2" value="Question 2">
+            <label for="question2"> Question 2</label><br>
+            <input type="checkbox" id="question3" name="question3" value="Question 3">
+            <label for="question3"> Question 3</label><br><br>
+        </p>
+        <button type="submit">Save Survey</button>
+    </form>
+</body>
+</html>

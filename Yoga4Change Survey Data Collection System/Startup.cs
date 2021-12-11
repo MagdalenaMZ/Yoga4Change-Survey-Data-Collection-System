@@ -25,9 +25,8 @@ namespace Yoga4Change_Survey_Data_Collection_System
            services.AddDbContext<Y4CDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddScoped<IResponseRepository, ResponseRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
-
-
             services.AddControllersWithViews();
         }
 
