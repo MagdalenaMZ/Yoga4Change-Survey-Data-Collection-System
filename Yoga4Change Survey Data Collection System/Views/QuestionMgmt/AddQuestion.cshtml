@@ -1,0 +1,86 @@
+﻿
+@model Yoga4Change_Survey_Data_Collection_System.Models.Question
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Question</title>
+</head>
+<body>
+    <form asp-action="AddQuestion" method="post" class="center">
+        <p style="text-align:center">
+            <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
+            <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
+        </p>
+        <div style="text-align:center">
+            <h3>Choose a question type:</h3>
+            <label asp-for="TypeId">Open ended</label>
+            <input type="radio" asp-for="TypeId" value="1" required="required" onclick="Disactivate()" /><br />
+
+            <label asp-for="TypeId">Yes/No</label>
+            <input type="radio" asp-for="TypeId" value="2" onclick="Disactivate()" /><br />
+
+            <label asp-for="TypeId">Date/Time</label>
+            <input type="radio" asp-for="TypeId" value="3" onclick="Disactivate()" /><br />
+
+            <label asp-for="TypeId">Radio Button</label>
+            <input type="radio" asp-for="TypeId" value="4" onclick="Activate()" /><br />
+
+            <label asp-for="TypeId">Checkbox</label>
+            <input type="radio" asp-for="TypeId" value="5" onclick="Activate()" /><br />
+
+            <label asp-for="TypeId">Dropdown</label>
+            <input type="radio" asp-for="TypeId" value="6" onclick="Activate()" /><br />
+
+            <label asp-for="TypeId">Likert Scale</label>
+            <input type="radio" asp-for="TypeId" value="7" onclick="Activate()" /><br />
+        </div>
+
+
+              <div id="show2" class="hide" style="text-align:center">
+                  <h3>Enter each response option below.</h3>
+                  <input type="text" /><br /><br />
+                  <p id="next"><input type="text" /><br /><br /></p>
+                  <button onclick="newrow()">Add Next Response</button>
+              </div><br />
+
+        <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+        <button type="submit">Save question</button>
+    </form>
+
+    <style>
+        .hide{
+            display:none;
+        }
+        .center {
+            margin: auto;
+            width: 40%;
+            border: 6px solid green;
+            padding: 10px;
+        }
+    </style>
+
+        <script>
+
+            function Activate() {
+                document.getElementById("show2").classList.remove("hide");
+            }
+            function Disactivate() {
+                document.getElementById("show2").classList.add("hide");
+            }
+
+            function newrow() {
+                document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button onclick='del(this)'>X</button></p>";
+            }
+
+            function del(field) {
+                field.parentNode.outerHTML = "";
+            }
+          
+        </script>
+    
+</body>
+</html>

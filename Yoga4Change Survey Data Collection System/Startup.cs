@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
+using Yoga4Change_Survey_Data_Collection_System.Repositories;
+using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System
 {
@@ -23,6 +22,11 @@ namespace Yoga4Change_Survey_Data_Collection_System
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           services.AddDbContext<Y4CDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IResponseRepository, ResponseRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddControllersWithViews();
         }
 
