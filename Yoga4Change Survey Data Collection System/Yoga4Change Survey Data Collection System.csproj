@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-  </ItemGroup>
-
-=======
 
     <None Include="wwwroot\lib\Images\y4c-logo.png" />
   </ItemGroup>
@@ -31,5 +26,4 @@
 
   
 
->>>>>>> master
 </Project>
