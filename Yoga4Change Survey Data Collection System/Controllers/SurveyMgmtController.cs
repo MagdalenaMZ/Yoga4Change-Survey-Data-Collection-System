@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+    [Authorize]
     public class SurveyMgmtController : Controller
     {
         public ViewResult CreateSurvey()
