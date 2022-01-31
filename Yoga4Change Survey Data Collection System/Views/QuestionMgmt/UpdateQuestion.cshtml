@@ -1,5 +1,5 @@
 ﻿
-@model Yoga4Change_Survey_Data_Collection_System.Models.ViewModel.AddQuestionPostModel
+@model Yoga4Change_Survey_Data_Collection_System.Models.Question
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var textOptionId = (int)Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended;
@@ -9,14 +9,15 @@
 
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add Question</title>
+    <title>Update Question</title>
 
 </head>
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="AddQuestion" method="post" id="create-form" class="center">
+            <form asp-action="UpdateQuestion" method="post" id="edit-form" class="center">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ID" />
                 <div class="form-group">
                     <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
                     <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
@@ -28,7 +29,7 @@
                     <span asp-validation-for="TypeId" class="text-danger"></span>
                 </div>
                 <div id="questionoptions" style="display: none;">
-                    <label asp-for="QuestionsOptions" class="control-label">Add a question choice: </label>
+                    <label  class="control-label">Add a question choice: </label>
                     <p id="next"><input type="text" /><br /><br /></p>
                     <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice('choice', -1)">+</button>
                 </div><br />
@@ -49,7 +50,7 @@
         var textId = @textOptionId;
 
         function addChoice() {
-            document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button type='button' class='btn btn - primary btn - xs' onclick='del(this)'>X</button></p>";
+            document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button onclick='del(this)'>X</button></p>";
         }
 
                     function del(field) {

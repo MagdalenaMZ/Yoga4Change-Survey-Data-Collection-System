@@ -21,6 +21,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
             return _context.Questions.ToListAsync();
         }
 
+
         public Task<int> AddQuestionAsync(Question question)
         {
             _context.Questions.AddAsync(question);
@@ -32,6 +33,19 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
            var question = _context.Questions.Find(id);
            if (question != null) _context.Questions.Remove(question);
            return _context.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateQuestionAsync(int id)
+        {
+            var question = _context.Questions.Find(id);
+            _context.Entry(question).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateQuestionAsync(Question question)
+        {
+            _context.Entry(question).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
         }
     }
 }
