@@ -10,8 +10,8 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
     {
         public Question()
         {
-            CreatedAt = DateTime.UtcNow;
-            LastModifiedAt = DateTime.UtcNow;
+            CreatedAt = DateTime.Now;
+            LastModifiedAt = DateTime.Now;
         }
         [Key]
 

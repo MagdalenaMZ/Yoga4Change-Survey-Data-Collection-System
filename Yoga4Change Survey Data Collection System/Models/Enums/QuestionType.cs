@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Yoga4Change_Survey_Data_Collection_System.Models.Enums
 {
@@ -29,4 +27,5 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models.Enums
         [Display(Name = "Likert Scale")]
         LikertScale = 7
     }
+
 }
