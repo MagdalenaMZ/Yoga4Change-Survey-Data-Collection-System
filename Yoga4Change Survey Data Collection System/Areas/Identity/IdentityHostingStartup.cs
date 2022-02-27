@@ -19,8 +19,15 @@ namespace Yoga4Change_Survey_Data_Collection_System.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("Y4CIdentityContextConnection")));
 
-                services.AddDefaultIdentity<Y4CUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<Y4CIdentityContext>();
+                services.AddIdentity<Y4CUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<Y4CIdentityContext>()
+                .AddDefaultTokenProviders();
+
+
+                services.AddScoped<IUserClaimsPrincipalFactory<Y4CUser>,
+            ApplicationUserClaimsPrincipalFactory
+            >();
             });
         }
     }
