@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Yoga4Change_Survey_Data_Collection_System.Models.Enums;
 
 
@@ -31,5 +32,8 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         public DateTimeOffset LastModifiedAt { get; set; }
 
         public ICollection<QuestionOption> Options { get; set; }
+
+        [NotMapped]
+        public List<string> Choices { get; set; }
     }
 }

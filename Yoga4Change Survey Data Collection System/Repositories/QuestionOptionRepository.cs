@@ -18,5 +18,12 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
         {
             return _context.QuestionsOptions.ToListAsync();
         }
+
+        public Task<int> AddQuestionOptionAsync(QuestionOption questionOption)
+        {
+            _context.QuestionsOptions.AddAsync(questionOption);
+            return _context.SaveChangesAsync();
+        }
+
     }
 }

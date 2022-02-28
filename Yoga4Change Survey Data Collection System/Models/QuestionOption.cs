@@ -25,5 +25,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         public int OrderInQuestion { get; set; }
 
         public Question Question { get; set; }
+
     }
 }

@@ -9,5 +9,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces
     public interface IQuestionOptionRepository
     {
         Task<List<QuestionOption>> GetQuestionOptionListAsync();
+
+        Task<int> AddQuestionOptionAsync(QuestionOption questionOption);
     }
 }

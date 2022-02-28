@@ -30,10 +30,9 @@
                 </div>
                 <div id="questionoptions" style="display: none;">
                     <label  class="control-label">Add a question choice: </label>
-                    <p id="next"><input type="text" /><br /><br /></p>
                     <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice('choice', -1)">+</button>
                 </div><br />
-                <div class="form-group">
+                <div id="buttons" class="form-group">
                     <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
                     <button type="submit" class="btn btn-outline-success">Save question</button>
                 </div>
@@ -50,12 +49,52 @@
         var textId = @textOptionId;
 
         function addChoice() {
-            document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button onclick='del(this)'>X</button></p>";
+            choiceCount += 1
+
+            let formGroupId = 'new-choice-${choiceCount}';
+
+            let formGroup = document.createElement("div");
+            formGroup.className = "form-group questionoptions-parent";
+            formGroup.id = formGroupId;
+
+            let label = document.createElement("label");
+            label.className = "control-label";
+            label.innerText = 'Choice';
+
+            let inputGroup = document.createElement("div");
+            inputGroup.className = "input-group";
+
+            let input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control choices";
+            input.id = nextIndex;
+
+
+            let inputGroupBtn = document.createElement("div");
+            inputGroupBtn.className = "input-group-btn";
+
+            let btnSubtract = document.createElement("button");
+            btnSubtract.type = "button";
+            btnSubtract.id = "btnRemoveChoice";
+            btnSubtract.className = "btn btn-danger";
+            btnSubtract.innerText = "-";
+            btnSubtract.onclick = function () { removeChoice(formGroupId) };
+
+            inputGroupBtn.appendChild(btnSubtract);
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(inputGroupBtn);
+            formGroup.appendChild(label);
+            formGroup.appendChild(inputGroup);
+            buttons.before(formGroup);
+
+            nextIndex++;
         }
 
-                    function del(field) {
-                field.parentNode.outerHTML = "";
-            }
+        function removeChoice(formGroupId) {
+            var formGroup = document.getElementById(formGroupId);
+            formGroup.remove();
+            choiceCount -= 1;
+        }
 
 
         function handleQuestionTypeChange() {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 using Yoga4Change_Survey_Data_Collection_System.Models.Enums;
-using Yoga4Change_Survey_Data_Collection_System.Repositories;
 using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
@@ -14,7 +15,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         private readonly IQuestionRepository _questionRepository;
         private readonly Y4CDbContext _dbContext;
 
-        public QuestionMgmtController(IQuestionRepository questionRepository, Y4CDbContext dbContext)
+        public QuestionMgmtController(IQuestionRepository questionRepository,  Y4CDbContext dbContext)
         {
             _questionRepository = questionRepository;
             _dbContext = dbContext;
@@ -27,9 +28,34 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         }
 
         [HttpPost]
-        public async Task<ViewResult> AddQuestionAsync(Question question )
+        public async Task<ViewResult> AddQuestionAsync(Question question)
         {
             await _questionRepository.AddQuestionAsync(question);
+ 
+
+            if (question.Choices != null && (question.TypeId != QuestionType.Open_Ended || question.TypeId != QuestionType.Yes_No || question.TypeId != QuestionType.Date_Time))
+            {
+                var choices = new List<QuestionOption>();
+
+                for (var i = 0; i < question.Choices.Count; i++)
+                {
+                    // Since the choice(s) aren't valid without the text field and would cause an error we need to check
+                    if (question.Choices[i] != null)
+                    {
+                        var choice = new QuestionOption
+                        {
+                            QuestionId = question.ID,
+                            Content = question.Choices[i],
+                            OrderInQuestion = i
+                        };
+
+                        choices.Add(choice);
+                    }
+                }
+
+                await _dbContext.QuestionsOptions.AddRangeAsync(choices);
+                await _dbContext.SaveChangesAsync();
+            }
             return View("SuccessAdd");
         }
         public async Task<ViewResult> QuestionBankAsync()
