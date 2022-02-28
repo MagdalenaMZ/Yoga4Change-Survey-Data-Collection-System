@@ -9,15 +9,24 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
     public class SurveyMgmtController : Controller
     {
         private readonly ISurveyRepository _surveyRepository;
+        private readonly IQuestionRepository _questionRepository;
 
-        public SurveyMgmtController(ISurveyRepository surveyRepository)
+        public SurveyMgmtController(ISurveyRepository surveyRepository, IQuestionRepository questionRepository)
         {
             _surveyRepository = surveyRepository;
+            _questionRepository = questionRepository;
         }
 
         public ViewResult CreateSurvey()
         {
             return View();
+        }
+
+        //temporary: delete this after testing along with Create view
+        public async Task<ViewResult> CreateAsync()
+        {
+            var questionList = await _questionRepository.GetQuestionListAsync();
+            return View(questionList);
         }
 
         public async Task<ViewResult> AddSurveyAsync(Survey survey)
