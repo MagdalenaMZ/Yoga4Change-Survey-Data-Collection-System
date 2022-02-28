@@ -12,7 +12,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         public Question Questions { get; set; }
         public bool Published { get; set; }
 
-        //placeholder subclass for question details
+        //subclass for question details
         public class Question
         {
             public int ID { get; set; }
@@ -22,9 +22,4 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
             //NOTE: required property should be changeable on a per-survey basis e.g., a question can be required in one survey but optional in another
         }
     }
-
-    //goals for deliverable 3:
-    //grab questions from question mgmt portions of code and db
-    //create surveys and put them in db
-
 }

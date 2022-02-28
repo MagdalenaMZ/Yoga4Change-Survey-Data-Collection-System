@@ -18,5 +18,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.EntityFramework
 
          public DbSet<Response> Responses { get; set; }
        public DbSet<Question> Questions { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
     }
 }
