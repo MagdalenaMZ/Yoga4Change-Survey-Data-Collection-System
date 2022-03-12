@@ -27,13 +27,13 @@
                     <select asp-for="TypeId" asp-items="Html.GetEnumSelectList<Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType>()" class="form-control" onchange="handleQuestionTypeChange();"></select>
                     <span asp-validation-for="TypeId" class="text-danger"></span>
                 </div>
-                <div id="questionoptions" style="display: none;">
-                    <label asp-for="Choices" class="control-label">Add a question choice: </label>
+                <div id="question-options" style="display: none;">
+                    <label asp-for="@Model.QuestionsOptions" class="control-label">Add a question choice: </label>
                     <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
                 </div><br />
                 <div id="buttons"class="form-group">
                     <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-                    <button type="submit" class="btn btn-outline-success">Save question</button>
+                    <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
                 </div>
             </form>
         </div>
@@ -48,17 +48,17 @@
         var textId = @textOptionId;
 
         function addChoice() {
-            choiceCount += 1
+            choiceCount += 1;
 
-            let formGroupId = 'new-choice-${choiceCount}';
+            let formGroupId = `new-choice-${choiceCount}`;
 
             let formGroup = document.createElement("div");
-            formGroup.className = "form-group questionoptions-parent";
+            formGroup.className = "form-group question-options-parent";
             formGroup.id = formGroupId;
 
             let label = document.createElement("label");
             label.className = "control-label";
-            label.innerText = 'Choice';
+            label.innerText = `Choice`;
 
             let inputGroup = document.createElement("div");
             inputGroup.className = "input-group";
@@ -102,19 +102,29 @@
             console.log(selectedValue);
 
             if (selectedValue == 1 || selectedValue == 2 || selectedValue == 3) {
-                var options = document.querySelectorAll(".questionoptions-parent");
+                var options = document.querySelectorAll(".question-options-parent");
                 for (var i = 0; i < options.length; i++) {
                     options[i].style.display = "none";
                 }
-                hide("questionoptions");
+                hide("question-options");
             }
             else {
-                var options = document.querySelectorAll("questionoptions-parent");
+                var options = document.querySelectorAll("question-options-parent");
                 for (var i = 0; i < options.length; i++) {
                     options[i].style.display = "block";
                 }
-                show("questionoptions");
+                show("question-options");
             }
+        }
+
+        function handleSubmit() {
+            var inputs = document.getElementsByClassName('choices');
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].name = `questionsOptions[${ i }]`;
+            }
+
+            document.getElementById('create-form').submit();
         }
 
         function get(selector) {

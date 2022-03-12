@@ -31,9 +31,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         [Display(Name = "Modified")]
         public DateTimeOffset LastModifiedAt { get; set; }
 
-        public ICollection<QuestionOption> Options { get; set; }
+        public virtual ICollection<QuestionOption> QuestionsOptions { get; set; }
 
-        [NotMapped]
-        public List<string> Choices { get; set; }
     }
 }

@@ -22,10 +22,11 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
         }
 
 
-        public Task<int> AddQuestionAsync(Question question)
+        public async Task<Question> AddQuestionAsync(Question question)
         {
-            _context.Questions.AddAsync(question);
-            return _context.SaveChangesAsync();
+            var entity = _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
         }
 
         public Task<int> DeleteQuestionAsync(int id)

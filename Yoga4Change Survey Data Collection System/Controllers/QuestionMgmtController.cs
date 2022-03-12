@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 using Yoga4Change_Survey_Data_Collection_System.Models.Enums;
+using Yoga4Change_Survey_Data_Collection_System.Models.ViewModel;
 using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
@@ -13,11 +14,13 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
     public class QuestionMgmtController : Controller
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly IQuestionOptionRepository _questionOptionRepository;
         private readonly Y4CDbContext _dbContext;
 
-        public QuestionMgmtController(IQuestionRepository questionRepository,  Y4CDbContext dbContext)
+        public QuestionMgmtController(IQuestionRepository questionRepository, IQuestionOptionRepository questionOptionRepository, Y4CDbContext dbContext)
         {
             _questionRepository = questionRepository;
+            _questionOptionRepository = questionOptionRepository;
             _dbContext = dbContext;
         }
 
@@ -28,32 +31,30 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         }
 
         [HttpPost]
-        public async Task<ViewResult> AddQuestionAsync(Question question)
+        public async Task<ViewResult> AddQuestionAsync(AddQuestionPostModel question)
         {
-            await _questionRepository.AddQuestionAsync(question);
+            var entity = await _questionRepository.AddQuestionAsync(question.ToQuestion());
  
-
-            if (question.Choices != null && (question.TypeId != QuestionType.Open_Ended || question.TypeId != QuestionType.Yes_No || question.TypeId != QuestionType.Date_Time))
+            if (question.QuestionsOptions != null && (question.TypeId != QuestionType.Open_Ended || question.TypeId != QuestionType.Yes_No || question.TypeId != QuestionType.Date_Time))
             {
                 var choices = new List<QuestionOption>();
 
-                for (var i = 0; i < question.Choices.Count; i++)
+                for (var i = 0; i < question.QuestionsOptions.Count; i++)
                 {
-                    // Since the choice(s) aren't valid without the text field and would cause an error we need to check
-                    if (question.Choices[i] != null)
+                    var optionText = question.QuestionsOptions[i];
+                    if (optionText != null)
                     {
                         var choice = new QuestionOption
                         {
-                            QuestionId = question.ID,
-                            Content = question.Choices[i],
+                            QuestionId = entity.ID,
+                            Content = optionText,
                             OrderInQuestion = i
                         };
 
                         choices.Add(choice);
                     }
-                }
-
-                await _dbContext.QuestionsOptions.AddRangeAsync(choices);
+                }             
+                _dbContext.QuestionsOptions.AddRange(choices);
                 await _dbContext.SaveChangesAsync();
             }
             return View("SuccessAdd");

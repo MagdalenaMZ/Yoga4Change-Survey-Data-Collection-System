@@ -13,7 +13,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models.ViewModel
             CreatedAt = DateTime.UtcNow;
             LastModifiedAt = DateTime.UtcNow;
         }
-        public int ID { get; set; }
         public string Content { get; set; }
 
         public QuestionType TypeId { get; set; }
@@ -22,8 +21,17 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models.ViewModel
 
         public DateTimeOffset LastModifiedAt { get; set; }
 
-        public IEnumerable<QuestionOption> QuestionsOptions { get; set; }
+        public List<string> QuestionsOptions { get; set; }
 
-        public List<string> Choices { get; set; }
+        public Question ToQuestion()
+        {
+            return new Question()
+            {
+                Content = Content,
+                TypeId = TypeId,
+                CreatedAt = CreatedAt,
+                LastModifiedAt = LastModifiedAt
+            };
+        }
     }
 }
