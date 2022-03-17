@@ -27,6 +27,7 @@ namespace Yoga4Change_Survey_Data_Collection_System
 
             services.AddScoped<IResponseRepository, ResponseRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
 
             services.AddControllersWithViews();
