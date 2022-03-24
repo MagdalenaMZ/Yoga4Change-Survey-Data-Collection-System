@@ -8,6 +8,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces
     {
         Task<List<Question>> GetQuestionListAsync();
         Task<Question> AddQuestionAsync(Question question);
+        Task<Question> DuplicateQuestionAsync(int id);
         Task<int> DeleteQuestionAsync(int id);
         Task<int> UpdateQuestionAsync(int id);
         Task<int> UpdateQuestionAsync(Question question);

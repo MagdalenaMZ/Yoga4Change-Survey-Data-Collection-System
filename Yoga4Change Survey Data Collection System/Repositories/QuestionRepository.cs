@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
@@ -28,6 +29,13 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
             await _context.SaveChangesAsync();
             return entity.Entity;
         }
+        public async Task<Question> DuplicateQuestionAsync(int id)
+        {
+            var question = _context.Questions.Find(id);
+            var entity = _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
+        }
 
         public Task<int> DeleteQuestionAsync(int id)
         {
@@ -48,5 +56,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
             _context.Entry(question).State = EntityState.Modified;
             return _context.SaveChangesAsync();
         }
+
     }
 }

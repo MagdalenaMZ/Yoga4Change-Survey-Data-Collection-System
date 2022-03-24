@@ -1,6 +1,5 @@
-﻿
-@model Yoga4Change_Survey_Data_Collection_System.Models.Question
-@{
+﻿@model Yoga4Change_Survey_Data_Collection_System.Models.ViewModel.UpdateQuestionModel
+@{ 
     Layout = "~/Views/Shared/_Layout.cshtml";
     var textOptionId = (int)Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended;
 }
@@ -9,15 +8,15 @@
 
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Update Question</title>
+    <title>Edit Question</title>
 
 </head>
 <body>
     <div class="row">
         <div class="col-md-4">
             <form asp-action="UpdateQuestion" method="post" id="edit-form" class="center">
+                <input asp-for="ID" type="hidden" />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="ID" />
                 <div class="form-group">
                     <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
                     <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
@@ -28,14 +27,42 @@
                     <select asp-for="TypeId" asp-items="Html.GetEnumSelectList<Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType>()" class="form-control" onchange="handleQuestionTypeChange();"></select>
                     <span asp-validation-for="TypeId" class="text-danger"></span>
                 </div>
-                <div id="questionoptions" style="display: none;">
-                    <label  class="control-label">Add a question choice: </label>
-                    <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice('choice', -1)">+</button>
-                </div><br />
-                <div id="buttons" class="form-group">
-                    <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-                    <button type="submit" class="btn btn-outline-success">Save question</button>
-                </div>
+                @{ var hidden = (Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended || Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Yes_No || Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Date_Time); }
+
+                @if (!hidden)
+                {
+                    <div id="radio-options">
+                        <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
+                        <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
+
+                        @for (int i = 0; i < Model.QuestionsOptions.Count; i++)
+                        {
+                            var parentId = $"existing-choice-{i}";
+
+                            <div class="form-group radio-option-parent" id="@parentId">
+                                <label asp-for="@Model.QuestionsOptions[i]" class="control-label">Choice</label>
+                                <div class="input-group">
+                                    <input asp-for="@Model.QuestionsOptions[i]" type="text" class="choices form-control" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" />
+                                    <div class="input-group-btn">
+                                        <button type="button" id="btnRemoveChoice" class="btn btn-danger" onclick="removeChoice('@parentId')">-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <input id="jake-easter-egg" value="reeses-cup" name="you-win" type="hidden" />
+                    </div>
+                }
+                else
+                {
+                    <div id="radio-options" style="display: none;">
+                        <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
+                        <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
+                    </div>
+                }
+                    <div id="buttons" class="form-group">
+                        <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+                        <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
+                    </div>
             </form>
         </div>
     </div>
@@ -49,17 +76,17 @@
         var textId = @textOptionId;
 
         function addChoice() {
-            choiceCount += 1
+            choiceCount += 1;
 
-            let formGroupId = 'new-choice-${choiceCount}';
+            let formGroupId = `new-choice-${choiceCount}`;
 
             let formGroup = document.createElement("div");
-            formGroup.className = "form-group questionoptions-parent";
+            formGroup.className = "form-group question-options-parent";
             formGroup.id = formGroupId;
 
             let label = document.createElement("label");
             label.className = "control-label";
-            label.innerText = 'Choice';
+            label.innerText = `Choice`;
 
             let inputGroup = document.createElement("div");
             inputGroup.className = "input-group";
@@ -103,19 +130,29 @@
             console.log(selectedValue);
 
             if (selectedValue == 1 || selectedValue == 2 || selectedValue == 3) {
-                var options = document.querySelectorAll(".questionoptions-parent");
+                var options = document.querySelectorAll(".question-options-parent");
                 for (var i = 0; i < options.length; i++) {
                     options[i].style.display = "none";
                 }
-                hide("questionoptions");
+                hide("question-options");
             }
             else {
-                var options = document.querySelectorAll("questionoptions-parent");
+                var options = document.querySelectorAll("question-options-parent");
                 for (var i = 0; i < options.length; i++) {
                     options[i].style.display = "block";
                 }
-                show("questionoptions");
+                show("question-options");
             }
+        }
+
+        function handleSubmit() {
+            var inputs = document.getElementsByClassName('choices');
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].name = `questionsOptions[${ i }]`;
+            }
+
+            document.getElementById('edit-form').submit();
         }
 
         function get(selector) {

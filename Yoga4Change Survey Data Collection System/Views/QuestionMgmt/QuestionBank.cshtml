@@ -41,7 +41,7 @@
                     <td>@r.CreatedAt.ToString("MM/dd/yyyy")</td>
                     <td>@r.LastModifiedAt.ToString("MM/dd/yyyy")</td>
                     <td>@Html.ActionLink("Edit", "UpdateQuestion", new { id = r.ID }, new { @class = "btn btn-success" })</td>
-                    <td>Duplicate</td>
+                    <td>@Html.ActionLink("Duplicate", "DuplicateQuestion", new { id = r.ID }, new { @class = "btn btn-success" })</td>
                     <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = r.ID }, new { @class = "btn btn-danger" })</td>
                 </tr>
                 }
