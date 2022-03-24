@@ -10,8 +10,7 @@
     <div class="form-group row">
         <label asp-for="RoleName" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
-            <input asp-for="RoleName" class="form-control">
-            <span asp-validation-for="RoleName" class="text-danger"></span>
+            <input asp-for="RoleName" disabled class="form-control">
         </div>
     </div>
 
@@ -19,8 +18,7 @@
 
     <div class="form-group row">
         <div class="col-sm-10">
-            <button asp-action="Index" type="submit" class="btn btn-primary">Update</button>
-            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            <button asp-action="Index" type="submit" class="btn btn-primary">Back to Role List</button>
         </div>
     </div>
 
