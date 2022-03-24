@@ -14,10 +14,17 @@
     <tbody>
         @foreach (var role in Model)
         {
-            <tr>
-                <td>@role.Name</td>
-            </tr>
-
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@role.Name</h5>
+            </div>
+            <div class="card-footer">
+                <a asp-controller="Role" asp-action="EditRole"
+                   asp-route-id="@role.Id" class="btn btn-primary">
+                    Edit
+                </a>
+            </div>
+        </div>
         }
     </tbody>
 </table>

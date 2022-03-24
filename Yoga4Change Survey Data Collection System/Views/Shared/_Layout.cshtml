@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <div id="dvLoading"></div>
     <header>
         <div class="navbar-header pull-left">
             <a class="navbar-brand" href="@Url.Action("Dashboard", "Home")">
@@ -42,7 +43,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
                         </li>
-                       <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                         </li>
                     </ul>
@@ -68,5 +69,10 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        $(window).load(function () {
+            $('#dvLoading').fadeOut(2000);
+        });
+    </script>
 </body>
 </html>

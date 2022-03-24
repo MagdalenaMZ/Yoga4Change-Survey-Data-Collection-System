@@ -11,7 +11,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces
     {
         Task<Y4CUser> FindByIdAsync(string id);
         Task<List<IdentityRole>> GetRoleListAsync();
-
-
+       // Task<bool> IsInRoleAsync(object user, string name);
+       // IEnumerable<object> ToList();
     }
 }

@@ -18,7 +18,7 @@ using Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Data;
 namespace Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Pages.Account
 {
     
-    [AllowAnonymous]
+    [Authorize(Roles = "SuperAdministrator")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<Y4CUser> _signInManager;
