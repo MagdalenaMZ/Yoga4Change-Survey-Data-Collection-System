@@ -10,6 +10,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces
     {
         Task<List<Survey>> GetSurveyListAsync();
         Task<int> AddSurveyAsync(Survey survey);
+        Task<int> EditSurveyAsync(int id);
         Task<int> DeleteSurveyAsync(int id);
     }
 }

@@ -26,6 +26,13 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
             return _context.SaveChangesAsync();
         }
 
+        public Task<int> EditSurveyAsync(int id)
+        {
+            var survey = _context.Surveys.Find(id);
+            _context.Entry(survey).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
+        }
+
         public Task<int> DeleteSurveyAsync(int id)
         {
             var survey = _context.Surveys.Find(id);

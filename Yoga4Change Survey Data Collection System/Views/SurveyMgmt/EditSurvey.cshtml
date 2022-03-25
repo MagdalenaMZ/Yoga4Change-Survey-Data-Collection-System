@@ -1,0 +1,48 @@
+﻿
+@model IEnumerable<Yoga4Change_Survey_Data_Collection_System.Models.Question>
+@{
+    //Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Survey</title>
+</head>
+<body>
+    <h1>Edit Survey</h1>
+
+    <table id="example" class="table table-bordered table-striped" style="table-layout: auto;width: 100%;" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="text-align:center"><label asp-for="Question ID: @Model.FirstOrDefault().ID"></label></th>
+                <th style="text-align:center"><label asp-for="Content: @Model.FirstOrDefault().Content"></label></th>
+                <th style="text-align:center"><label asp-for="Type: @Model.FirstOrDefault().TypeId"></label></th>
+                <th class="text-center"><label>Delete from Survey</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>What is your current age, in years?</td>
+                <td>Open_Ended</td>
+                <td style="text-align:center">Delete</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>What best describes your gender identity?</td>
+                <td>Open_Ended</td>
+                <td style="text-align:center">Delete</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>What is your race/ethnicity?</td>
+                <td>Open_Ended</td>
+                <td style="text-align:center">Delete</td>
+            </tr>
+        </tbody>
+    </table>
+    <button>Save Survey</button>
+    <button>Publish Survey</button>
+</body>
+</html>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
@@ -10,11 +12,13 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
     {
         private readonly ISurveyRepository _surveyRepository;
         private readonly IQuestionRepository _questionRepository;
+        private readonly Y4CDbContext _dbContext;
 
-        public SurveyMgmtController(ISurveyRepository surveyRepository, IQuestionRepository questionRepository)
+        public SurveyMgmtController(ISurveyRepository surveyRepository, IQuestionRepository questionRepository, Y4CDbContext dbContext)
         {
             _surveyRepository = surveyRepository;
             _questionRepository = questionRepository;
+            _dbContext = dbContext;
         }
 
         public ViewResult CreateSurvey()
@@ -31,14 +35,20 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 
         public async Task<ViewResult> AddSurveyAsync(Survey survey)
         {
-            await _surveyRepository.AddSurveyAsync(survey);
+            //await _surveyRepository.AddSurveyAsync(survey);
             return View("SuccessAdd");
         }
 
         public async Task<ViewResult> SurveyListAsync()
         {
-            var surveyList = await _surveyRepository.GetSurveyListAsync();
-            return View(surveyList);
+            //var surveyList = await _surveyRepository.GetSurveyListAsync();
+            return View(/*surveyList*/);
+        }
+
+        public async Task<ViewResult> EditSurveyAsync(int id)
+        {
+            //var surveyEdit = await _dbContext.Surveys.FirstOrDefaultAsync(s => s.ID == id);
+            return View(/*surveyEdit*/);
         }
 
         public async Task<ViewResult> DeleteSurveyAsync(int id)
@@ -50,8 +60,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         [HttpGet]
         public ViewResult Surveys()
         {
-            
-
             return View();
         }
     }
