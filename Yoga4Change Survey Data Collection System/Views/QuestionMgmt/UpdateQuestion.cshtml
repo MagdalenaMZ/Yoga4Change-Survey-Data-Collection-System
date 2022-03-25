@@ -31,7 +31,7 @@
 
                 @if (!hidden)
                 {
-                    <div id="radio-options">
+                    <div id="question-options">
                         <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
                         <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
 
@@ -42,14 +42,13 @@
                             <div class="form-group radio-option-parent" id="@parentId">
                                 <label asp-for="@Model.QuestionsOptions[i]" class="control-label">Choice</label>
                                 <div class="input-group">
-                                    <input asp-for="@Model.QuestionsOptions[i]" type="text" class="choices form-control" draggable="true" ondragstart="drag(event)" ondrop="drop(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" />
+                                    <input asp-for="@Model.QuestionsOptions[i]" type="text" class="choices form-control" />
                                     <div class="input-group-btn">
                                         <button type="button" id="btnRemoveChoice" class="btn btn-danger" onclick="removeChoice('@parentId')">-</button>
                                     </div>
                                 </div>
                             </div>
                         }
-                        <input id="jake-easter-egg" value="reeses-cup" name="you-win" type="hidden" />
                     </div>
                 }
                 else

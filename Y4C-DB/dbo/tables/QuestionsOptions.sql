@@ -7,5 +7,5 @@
 	[QuestionId] INT NOT NULL,
 	[OrderInQuestion] INT NOT NULL, 
     CONSTRAINT [PK_QuestionsOptions_Id] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_QuestionsOptions_QuestionId] FOREIGN KEY ([QuestionId]) REFERENCES [Questions]([Id])
+    CONSTRAINT [FK_QuestionsOptions_QuestionId] FOREIGN KEY ([QuestionId]) REFERENCES [Questions]([Id]) ON DELETE CASCADE
 );

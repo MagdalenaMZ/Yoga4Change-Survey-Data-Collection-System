@@ -35,7 +35,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         public async Task<ViewResult> AddQuestionAsync(AddQuestionPostModel question)
         {
             var entity = await _questionRepository.AddQuestionAsync(question.ToQuestion());
- 
+
             if (question.QuestionsOptions != null && (question.TypeId != QuestionType.Open_Ended || question.TypeId != QuestionType.Yes_No || question.TypeId != QuestionType.Date_Time))
             {
                 var choices = new List<QuestionOption>();
@@ -54,7 +54,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 
                         choices.Add(choice);
                     }
-                }             
+                }
                 _dbContext.QuestionsOptions.AddRange(choices);
                 await _dbContext.SaveChangesAsync();
             }
@@ -70,6 +70,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         public async Task<ViewResult> DeleteQuestionAsync(int id)
         {
             await _questionRepository.DeleteQuestionAsync(id);
+
             return View("SuccessDelete");
         }
 
@@ -132,29 +133,50 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
                 _dbContext.QuestionsOptions.AddRange(choices);
                 await _dbContext.SaveChangesAsync();
             }
-                return View("SuccessUpdate");
-            
+            return View("SuccessUpdate");
+
         }
 
         public async Task<ViewResult> DuplicateQuestionAsync(int id)
         {
-            var toCopy = await _dbContext.Questions.FirstOrDefaultAsync(q => q.ID == id);
-            var options = await _dbContext.QuestionsOptions.Where(c => c.QuestionId == toCopy.ID).OrderBy(n => n.OrderInQuestion).ToListAsync();
+            var toCopy = await _dbContext.Questions.Include(x =>x.QuestionsOptions).FirstOrDefaultAsync(q => q.ID == id);
             var newQuestion = new Question
+
             {
                 Content = toCopy.Content,
                 TypeId = toCopy.TypeId,
                 CreatedAt = DateTime.Now,
-                LastModifiedAt = DateTime.Now,
-                QuestionsOptions = toCopy.QuestionsOptions
-             };
-                _dbContext.Questions.Add(newQuestion);
-            _dbContext.QuestionsOptions.AddRange(options);
+                LastModifiedAt = DateTime.Now
+            };
+            _dbContext.Questions.Add(newQuestion);
+            await _dbContext.SaveChangesAsync();
 
+            if (toCopy.QuestionsOptions != null && (toCopy.TypeId != QuestionType.Open_Ended || toCopy.TypeId != QuestionType.Yes_No || toCopy.TypeId != QuestionType.Date_Time))
+            {
+                var choices = new List<QuestionOption>();
+
+                for (var i = 0; i < toCopy.QuestionsOptions.Count; i++)
+                {
+                    var optionText = toCopy.QuestionsOptions.Select(x => x.Content).ToList()[i];
+                    if (optionText != null)
+                    {
+                        var choice = new QuestionOption
+                        {
+                            QuestionId = newQuestion.ID,
+                            Content = optionText,
+                            OrderInQuestion = i
+                        };
+
+                        choices.Add(choice);
+                    }
+                }
+                _dbContext.QuestionsOptions.AddRange(choices);
+        }
             await _dbContext.SaveChangesAsync();
             return View("SuccessAdd");
-        }
 
+        }
     }
 }
+
 
