@@ -1,86 +1,162 @@
 ﻿
-@model Yoga4Change_Survey_Data_Collection_System.Models.Question
+@model Yoga4Change_Survey_Data_Collection_System.Models.ViewModel.AddQuestionPostModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var textOptionId = (int)Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended;
 }
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Add Question</title>
+
 </head>
 <body>
-    <form asp-action="AddQuestion" method="post" class="center">
-        <p style="text-align:center">
-            <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
-            <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
-        </p>
-        <div style="text-align:center">
-            <h3>Choose a question type:</h3>
-            <label asp-for="TypeId">Open ended</label>
-            <input type="radio" asp-for="TypeId" value="1" required="required" onclick="Disactivate()" /><br />
-
-            <label asp-for="TypeId">Yes/No</label>
-            <input type="radio" asp-for="TypeId" value="2" onclick="Disactivate()" /><br />
-
-            <label asp-for="TypeId">Date/Time</label>
-            <input type="radio" asp-for="TypeId" value="3" onclick="Disactivate()" /><br />
-
-            <label asp-for="TypeId">Radio Button</label>
-            <input type="radio" asp-for="TypeId" value="4" onclick="Activate()" /><br />
-
-            <label asp-for="TypeId">Checkbox</label>
-            <input type="radio" asp-for="TypeId" value="5" onclick="Activate()" /><br />
-
-            <label asp-for="TypeId">Dropdown</label>
-            <input type="radio" asp-for="TypeId" value="6" onclick="Activate()" /><br />
-
-            <label asp-for="TypeId">Likert Scale</label>
-            <input type="radio" asp-for="TypeId" value="7" onclick="Activate()" /><br />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddQuestion" method="post" id="create-form" class="center">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
+                    <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TypeId" class="control-label">Choose a question type:</label>
+                    <select asp-for="TypeId" asp-items="Html.GetEnumSelectList<Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType>()" class="form-control" onchange="handleQuestionTypeChange();"></select>
+                    <span asp-validation-for="TypeId" class="text-danger"></span>
+                </div>
+                <div id="question-options" style="display: none;">
+                    <label asp-for="@Model.QuestionsOptions" class="control-label">Add a question choice: </label>
+                    <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
+                </div><br />
+                <div id="buttons"class="form-group">
+                    <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+                    <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
+                </div>
+            </form>
         </div>
-
-
-              <div id="show2" class="hide" style="text-align:center">
-                  <h3>Enter each response option below.</h3>
-                  <input type="text" /><br /><br />
-                  <p id="next"><input type="text" /><br /><br /></p>
-                  <button onclick="newrow()">Add Next Response</button>
-              </div><br />
-
-        <button type="button"> <a asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-        <button type="submit">Save question</button>
-    </form>
-
-    <style>
-        .hide{
-            display:none;
-        }
-        .center {
-            margin: auto;
-            width: 40%;
-            border: 6px solid green;
-            padding: 10px;
-        }
-    </style>
-
-        <script>
-
-            function Activate() {
-                document.getElementById("show2").classList.remove("hide");
-            }
-            function Disactivate() {
-                document.getElementById("show2").classList.add("hide");
-            }
-
-            function newrow() {
-                document.getElementById("next").innerHTML += "<p><input type='text' required='required'><button onclick='del(this)'>X</button></p>";
-            }
-
-            function del(field) {
-                field.parentNode.outerHTML = "";
-            }
-          
-        </script>
-    
+    </div>
 </body>
 </html>
+
+@section Scripts {
+    <script type="text/javascript">
+        var choiceCount = 0;
+        var nextIndex = 0;
+        var textId = @textOptionId;
+
+        function addChoice() {
+            choiceCount += 1;
+
+            let formGroupId = `new-choice-${choiceCount}`;
+
+            let formGroup = document.createElement("div");
+            formGroup.className = "form-group question-options-parent";
+            formGroup.id = formGroupId;
+
+            let label = document.createElement("label");
+            label.className = "control-label";
+            label.innerText = `Choice`;
+
+            let inputGroup = document.createElement("div");
+            inputGroup.className = "input-group";
+
+            let input = document.createElement("input");
+            input.type = "text";
+            input.className = "form-control choices";
+            input.id = nextIndex;
+
+
+            let inputGroupBtn = document.createElement("div");
+            inputGroupBtn.className = "input-group-btn";
+
+            let btnSubtract = document.createElement("button");
+            btnSubtract.type = "button";
+            btnSubtract.id = "btnRemoveChoice";
+            btnSubtract.className = "btn btn-danger";
+            btnSubtract.innerText = "-";
+            btnSubtract.onclick = function () { removeChoice(formGroupId) };
+
+            inputGroupBtn.appendChild(btnSubtract);
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(inputGroupBtn);
+            formGroup.appendChild(label);
+            formGroup.appendChild(inputGroup);
+            buttons.before(formGroup);
+
+            nextIndex++;
+        }
+
+        function removeChoice(formGroupId) {
+            var formGroup = document.getElementById(formGroupId);
+            formGroup.remove();
+            choiceCount -= 1;
+        }
+
+
+        function handleQuestionTypeChange() {
+            var selectList = get("#TypeId");
+            var selectedValue = selectList.value;
+            console.log(selectedValue);
+
+            if (selectedValue == 1 || selectedValue == 2 || selectedValue == 3) {
+                var options = document.querySelectorAll(".question-options-parent");
+                for (var i = 0; i < options.length; i++) {
+                    options[i].style.display = "none";
+                }
+                hide("question-options");
+            }
+            else {
+                var options = document.querySelectorAll("question-options-parent");
+                for (var i = 0; i < options.length; i++) {
+                    options[i].style.display = "block";
+                }
+                show("question-options");
+            }
+        }
+
+        function handleSubmit() {
+            var inputs = document.getElementsByClassName('choices');
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].name = `questionsOptions[${ i }]`;
+            }
+
+            document.getElementById('create-form').submit();
+        }
+
+        function get(selector) {
+            if (!selector) {
+                console.log("Element not found. No selector provided.");
+                return;
+            }
+
+            let result = document.querySelector(selector);
+            if (!result) {
+                console.log(`Element not found: "${selector}"`);
+                return;
+            }
+
+            return result;
+        }
+
+        function show(id) {
+            var element = get(`#${id}`);
+
+            if (element) {
+                element.style.display = "block";
+            }
+        }
+
+        function hide(id) {
+            var element = get(`#${id}`);
+
+            if (element) {
+                element.style.display = "none";
+            }
+        }
+
+    </script>
+}
