@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 using Yoga4Change_Survey_Data_Collection_System.Repositories;
@@ -6,6 +7,7 @@ using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+    [Authorize]
     public class QuestionMgmtController : Controller
     {
         private readonly IQuestionRepository _questionRepository;

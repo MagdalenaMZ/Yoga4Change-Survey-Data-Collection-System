@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Yoga4Change Survey Data Collection System</title>
+    <link rel="icon" href="~/lib/Images/y4c-logo2.png">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <div id="dvLoading"></div>
     <header>
         <div class="navbar-header pull-left">
             <a class="navbar-brand" href="@Url.Action("Dashboard", "Home")">
@@ -38,7 +40,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="CompleteSurveys">Completed Surveys</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                        </li>
                     </ul>
+                </div>
+                <div class="col-md-2">
+                    <partial name="_LoginPartial.cshtml" />
                 </div>
             </div>
         </nav>
@@ -51,12 +62,17 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Yoga4Change_Survey_Data_Collection_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Yoga4Change Survey Data Collection System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        $(window).load(function () {
+            $('#dvLoading').fadeOut(2000);
+        });
+    </script>
 </body>
 </html>
