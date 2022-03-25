@@ -1,6 +1,5 @@
-﻿
-@model Yoga4Change_Survey_Data_Collection_System.Models.ViewModel.AddQuestionPostModel
-@{
+﻿@model Yoga4Change_Survey_Data_Collection_System.Models.ViewModel.UpdateQuestionModel
+@{ 
     Layout = "~/Views/Shared/_Layout.cshtml";
     var textOptionId = (int)Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended;
 }
@@ -9,13 +8,14 @@
 
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add Question</title>
+    <title>Edit Question</title>
 
 </head>
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="AddQuestion" method="post" id="create-form" class="center">
+            <form asp-action="UpdateQuestion" method="post" id="edit-form" class="center">
+                <input asp-for="ID" type="hidden" />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
@@ -27,14 +27,41 @@
                     <select asp-for="TypeId" asp-items="Html.GetEnumSelectList<Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType>()" class="form-control" onchange="handleQuestionTypeChange();"></select>
                     <span asp-validation-for="TypeId" class="text-danger"></span>
                 </div>
-                <div id="question-options" style="display: none;">
-                    <label asp-for="@Model.QuestionsOptions" class="control-label">Add a question choice: </label>
-                    <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
-                </div><br />
-                <div id="buttons"class="form-group">
-                    <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-                    <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
-                </div>
+                @{ var hidden = (Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Open_Ended || Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Yes_No || Model.TypeId == Yoga4Change_Survey_Data_Collection_System.Models.Enums.QuestionType.Date_Time); }
+
+                @if (!hidden)
+                {
+                    <div id="question-options">
+                        <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
+                        <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
+
+                        @for (int i = 0; i < Model.QuestionsOptions.Count; i++)
+                        {
+                            var parentId = $"existing-choice-{i}";
+
+                            <div class="form-group radio-option-parent" id="@parentId">
+                                <label asp-for="@Model.QuestionsOptions[i]" class="control-label">Choice</label>
+                                <div class="input-group">
+                                    <input asp-for="@Model.QuestionsOptions[i]" type="text" class="choices form-control" />
+                                    <div class="input-group-btn">
+                                        <button type="button" id="btnRemoveChoice" class="btn btn-danger" onclick="removeChoice('@parentId')">-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div id="radio-options" style="display: none;">
+                        <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
+                        <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
+                    </div>
+                }
+                    <div id="buttons" class="form-group">
+                        <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+                        <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
+                    </div>
             </form>
         </div>
     </div>
@@ -124,7 +151,7 @@
                 inputs[i].name = `questionsOptions[${ i }]`;
             }
 
-            document.getElementById('create-form').submit();
+            document.getElementById('edit-form').submit();
         }
 
         function get(selector) {

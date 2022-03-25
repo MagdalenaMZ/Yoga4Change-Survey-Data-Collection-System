@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
@@ -21,10 +22,19 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
             return _context.Questions.ToListAsync();
         }
 
-        public Task<int> AddQuestionAsync(Question question)
+
+        public async Task<Question> AddQuestionAsync(Question question)
         {
-            _context.Questions.AddAsync(question);
-            return _context.SaveChangesAsync();
+            var entity = _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
+        }
+        public async Task<Question> DuplicateQuestionAsync(int id)
+        {
+            var question = _context.Questions.Find(id);
+            var entity = _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
         }
 
         public Task<int> DeleteQuestionAsync(int id)
@@ -33,5 +43,19 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
            if (question != null) _context.Questions.Remove(question);
            return _context.SaveChangesAsync();
         }
+
+        public Task<int> UpdateQuestionAsync(int id)
+        {
+            var question = _context.Questions.Find(id);
+            _context.Entry(question).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
+        }
+
+        public Task<int> UpdateQuestionAsync(Question question)
+        {
+            _context.Entry(question).State = EntityState.Modified;
+            return _context.SaveChangesAsync();
+        }
+
     }
 }
