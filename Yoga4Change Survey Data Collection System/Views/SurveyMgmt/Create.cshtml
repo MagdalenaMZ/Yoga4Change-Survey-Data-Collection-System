@@ -1,0 +1,47 @@
+﻿
+@model IEnumerable<Yoga4Change_Survey_Data_Collection_System.Models.Question>
+@{
+    ViewBag.Title = "Create Survey";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create Survey</title>
+</head>
+<body>
+    <h1>Create Survey</h1><br />
+    <form asp-action="CreateSurvey" method="post">
+        <p>
+            <label>Name of the survey: </label>
+            <input type="text" id="name" name="name" />
+        </p>
+        <p>
+            Select questions from the question bank below to add to the survey <br />
+            <table id="questionslist" class="table table-bordered table-striped" style="table-layout: auto;width: 100%;" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="text-align:center"><label asp-for="Question ID: @Model.FirstOrDefault().ID"></label></th>
+                        <th style="text-align:center"><label asp-for="Content: @Model.FirstOrDefault().Content"></label></th>
+                        <th style="text-align:center"><label asp-for="Type: @Model.FirstOrDefault().TypeId"></label></th>
+                        <th style="text-align:center"><label>Select</label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var q in Model) 
+                    {
+                    <tr>
+                        <td>@q.ID</td>
+                        <td>@q.Content</td>
+                        <td>@q.TypeId</td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </p>
+        <!--UNCOMMENT THE BUTTON TAG<button type="submit">--><a asp-area="" asp-controller="SurveyMgmt" asp-action="AddSurvey">Add Survey</a><!--</button>-->
+    </form>
+</body>
+</html>
+
