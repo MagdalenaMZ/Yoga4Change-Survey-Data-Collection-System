@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Yoga4Change_Survey_Data_Collection_System</RootNamespace>
+    <UserSecretsId>62bf8d5f-1a2b-4890-bfd7-2c93b432bfed</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
 	<PrivateAssets>all</PrivateAssets>
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
+	<PackageReference Include="SendGrid" Version="9.27.0" />
   </ItemGroup> 
 
   
