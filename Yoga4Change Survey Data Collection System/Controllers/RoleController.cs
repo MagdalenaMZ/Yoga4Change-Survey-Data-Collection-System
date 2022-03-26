@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Data;
 using Yoga4Change_Survey_Data_Collection_System.Models;
-using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;

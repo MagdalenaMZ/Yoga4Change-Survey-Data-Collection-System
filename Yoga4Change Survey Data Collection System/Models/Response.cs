@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-//using Yoga4Change_Survey_Data_Collection_System.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Models
 {

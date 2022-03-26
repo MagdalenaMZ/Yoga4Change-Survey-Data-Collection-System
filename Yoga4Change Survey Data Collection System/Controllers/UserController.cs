@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+   [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
         UserManager<Y4CUser> userManager;

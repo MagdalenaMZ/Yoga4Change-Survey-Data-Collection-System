@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Services
 {
-        public class EmailSender : IEmailSender
+    public class EmailSender : IEmailSender
         {
             public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
             {
