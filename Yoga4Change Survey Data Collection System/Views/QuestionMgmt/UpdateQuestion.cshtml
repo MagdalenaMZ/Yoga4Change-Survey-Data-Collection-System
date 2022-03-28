@@ -39,7 +39,7 @@
                         {
                             var parentId = $"existing-choice-{i}";
 
-                            <div class="form-group radio-option-parent" id="@parentId">
+                            <div class="form-group question-option-parent" id="@parentId">
                                 <label asp-for="@Model.QuestionsOptions[i]" class="control-label">Choice</label>
                                 <div class="input-group">
                                     <input asp-for="@Model.QuestionsOptions[i]" type="text" class="choices form-control" />
@@ -53,7 +53,7 @@
                 }
                 else
                 {
-                    <div id="radio-options" style="display: none;">
+                    <div id="question-options" style="display: none;">
                         <label asp-for="@Model.QuestionsOptions" class="control-label"></label>
                         <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
                     </div>
@@ -136,7 +136,7 @@
                 hide("question-options");
             }
             else {
-                var options = document.querySelectorAll("question-options-parent");
+                var options = document.querySelectorAll(".question-options-parent");
                 for (var i = 0; i < options.length; i++) {
                     options[i].style.display = "block";
                 }
