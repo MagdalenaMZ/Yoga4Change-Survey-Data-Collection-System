@@ -14,38 +14,56 @@
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
 </head>
-    <form method="post">
-        <table id="userinroletable" class="table table-striped table-bordered dt-responsive" style="table-layout: auto;width: 100%;" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Select User for Role</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    <tr>
-                        <input type="hidden" asp-for="@Model[i].UserId" />
-                        <input type="hidden" asp-for="@Model[i].UserName" />
-                        <td><input asp-for="@Model[i].IsSelected" type="checkbox" /></td>
-                        <td>
-                            <label class="form-check-label" asp-for="@Model[i].IsSelected">
-                                @Model[i].UserName
-                            </label>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-<script>
-    $('#userinroletable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
+<h1>Edit Users in Role</h1>
+<form method="post">
+    <table id="userinroletable" class="table table-striped table-bordered dt-responsive" style="table-layout: auto;width: 100%;" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Select User for Role</th>
+                <th>Full Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+            <tr>
+                <input type="hidden" asp-for="@Model[i].UserId" />
+                <input type="hidden" asp-for="@Model[i].UserName" />
+                <td><input asp-for="@Model[i].IsSelected" type="checkbox" /></td>
+                <td>
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].FullName
+                    </label>
+                </td>
+                <td>
+                    <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                        @Model[i].UserName
+                    </label>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <script>
+        $('#userinroletable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
 
-        ]
+            ]
+        });
+    </script>
+    <button id="confirmTrigger" class="btn btn-primary">Update</button>
+    <a asp-action="EditRole" asp-route-id="@roleId" class="btn btn-danger" style="width:auto">Cancel</a>
+</form>
+<script>
+    const button = document.getElementById('confirmTrigger');
+    const confirmResult = document.getElementById('confirmUpdate');
+    button.addEventListener('click', function (e) {
+        if (window.confirm('Are you sure you would like to update selected user roles?')) {
+            confirmResult.innerText = 'Yes';
+        } else {
+            confirmResult.innerText = 'No';
+        }
     });
 </script>
-<input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-<a asp-action="EditRole" asp-route-id="@roleId" class="btn btn-danger" style="width:auto">Cancel</a>
-</form>

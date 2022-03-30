@@ -113,13 +113,13 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             }
 
             var model = new List<UserRoleViewModel>();
-
             foreach (var user in userManager.Users)
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
                     UserId = user.Id,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    FullName = user.FullName,
                 };
 
                 if (await userManager.IsInRoleAsync(user, role.Name))

@@ -19,14 +19,13 @@
     <body>
         <div>
             <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info" style="background-color: #4bb86a; float: right; margin: 5px">Create User</a>
-            
+
             <h3>List of Users</h3>
             <table id="usertable" class="table table-striped table-bordered dt-responsive" style="table-layout: auto;width: 100%;" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>UserName</th>
                         <th>Full Name</th>
+                        <th>Email</th>
                         <th colspan="1" style="text-align : center"><label>Delete</label></th>
                         <th colspan="1" style="text-align : center"><label>Edit</label></th>
                     </tr>
@@ -35,9 +34,8 @@
                     @foreach (var user in Model)
                     {
                         <tr>
-                            <td>@user.Email</td>
-                            <td>@user.NormalizedUserName</td>
                             <td>@user.FullName</td>
+                            <td>@user.Email</td>
                             <td>
                                 <form method="post" asp-action="DeleteUser" asp-route-id="@user.Id">
                                     <span id="confirmDeleteSpan_@user.Id" style="display:none">
@@ -62,21 +60,21 @@
             </table>
         </div>
     </body>
-    <script>
-        var table = $('#usertable').DataTable();
-
-        function confirmDelete(uniqueId, isDeleteClicked) {
-            var deleteSpan = 'deleteSpan_' + uniqueId;
-            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
-
-            if (isDeleteClicked) {
-                $('#' + deleteSpan).hide();
-                $('#' + confirmDeleteSpan).show();
-            } else {
-                $('#' + deleteSpan).show();
-                $('#' + confirmDeleteSpan).hide();
-            }
-        }
-    </script>
 </html>
 </!DOC>
+<script>
+    var table = $('#usertable').DataTable();
+
+    function confirmDelete(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+</script>

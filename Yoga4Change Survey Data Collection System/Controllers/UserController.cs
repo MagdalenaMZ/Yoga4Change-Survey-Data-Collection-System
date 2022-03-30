@@ -57,7 +57,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
-            var user = await _userRepository.FindByIdAsync(id);
+            var user = await userManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -65,17 +65,18 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
                 return View("NotFound");
             }
 
-
+            // GetClaimsAsync retunrs the list of user Claims
+            var userClaims = await userManager.GetClaimsAsync(user);
             // GetRolesAsync returns the list of user Roles
-            var userRoles = await _userRepository.GetRoleListAsync();
+            var userRoles = await userManager.GetRolesAsync(user);
 
             var model = new EditUserViewModel
             {
                 Id = user.Id,
+                FullName = user.FullName,
                 Email = user.Email,
                 UserName = user.UserName,
-                FullName = user.FullName,
-                Roles = userRoles
+                Claims = userClaims.Select(c => c.Value).ToList(),
             };
 
             return View(model);
@@ -92,15 +93,16 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             }
             else
             {
-                user.Email = model.Email;
-                user.UserName = model.UserName;
                 user.FullName = model.FullName;
+                user.Email = model.Email;
+                //user.UserName = model.UserName;
+                
 
                 var result = await userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("I");
+                    return RedirectToAction("Index");
                 }
 
                 foreach (var error in result.Errors)
