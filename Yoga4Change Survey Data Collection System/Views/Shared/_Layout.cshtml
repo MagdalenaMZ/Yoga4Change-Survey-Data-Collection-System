@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Data
+
+@inject SignInManager<Y4CUser> SignInManager
+@inject UserManager<Y4CUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,48 +13,63 @@
     <link rel="icon" href="~/lib/Images/y4c-logo2.png">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type='text/javascript' src='loadImg.js'></script>
 </head>
 <body>
-    <div id="dvLoading"></div>
+    <div class="se-pre-con"></div>
     <header>
-        <div class="navbar-header pull-left">
-            <a class="navbar-brand" href="@Url.Action("Dashboard", "Home")">
-                <img src="/lib/Images/y4c-logo.png" alt="Site Logo" height="116" width="300" />
-            </a>
-        </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="@Url.Action("Dashboard", "Responses")">
+                    <div style="width: 150px; height: 150px;">
+                        <img src="/lib/Images/y4c-logo.png" alt="Site Logo" style="height:100%; width:100%; object-fit: contain" />
+                    </div>
+                </a>
+            </div>
             <div class="container">
                 <!-- <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Yoga4Change_Survey_Data_Collection_System</a>-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SurveyMgmt" asp-action="Create">Create Survey</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Question Bank</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SurveyMgmt" asp-action="Surveys">Surveys</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="Dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="CompleteSurveys">Completed Surveys</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" style="align-content:baseline">
+                    <ul class="navbar-nav nav-tabs flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator") || User.IsInRole("Survey Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SurveyMgmt" asp-action="Create">Create Survey</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="QuestionMgmt" asp-action="QuestionBank">Question Bank</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SurveyMgmt" asp-action="Surveys">Surveys</a>
+                            </li>
+                        }
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator") || User.IsInRole("Survey Manager") || User.IsInRole("Researcher"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="Dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Responses" asp-action="CompleteSurveys">Completed Surveys</a>
+                            </li>
+                        }
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class=" text-dark nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrator</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Roles</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <partial name="_LoginPartial.cshtml" />
                 </div>
             </div>
@@ -69,10 +90,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    <script>
-        $(window).load(function () {
-            $('#dvLoading').fadeOut(2000);
-        });
-    </script>
 </body>
 </html>

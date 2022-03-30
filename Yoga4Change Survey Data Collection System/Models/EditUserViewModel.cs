@@ -17,7 +17,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         [Required]
         public string FullName { get; set; }
 
-        [Required]
         public string UserName { get; set; }
 
         [Required]
