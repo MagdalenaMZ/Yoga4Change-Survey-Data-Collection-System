@@ -1,5 +1,6 @@
-﻿
-@model IEnumerable<Yoga4Change_Survey_Data_Collection_System.Models.Question>
+﻿@using Yoga4Change_Survey_Data_Collection_System.Models.ViewModel;
+
+@model  AddSurveyViewModel
 @{
     ViewBag.Title = "Create Survey";
 }
@@ -7,41 +8,77 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create Survey</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js" defer></script>
 </head>
 <body>
     <h1>Create Survey</h1><br />
     <form asp-action="CreateSurvey" method="post">
         <p>
-            <label>Name of the survey: </label>
-            <input type="text" id="name" name="name" />
+            <label asp-for="Survey.Name">Name of the survey: </label>
+            <input asp-for="Survey.Name" type="text" id="name" name="name" required/>
         </p>
         <p>
-            Select questions from the question bank below to add to the survey <br />
-            <table id="questionslist" class="table table-bordered table-striped" style="table-layout: auto;width: 100%;" cellspacing="0">
+            Select questions from the list below to add to the survey<br />
+            <table id="questionlist" class="table table-bordered table-striped" style="table-layout: auto;width: 100%;" cellspacing="0">
                 <thead>
                     <tr>
-                        <th style="text-align:center"><label asp-for="Question ID: @Model.FirstOrDefault().ID"></label></th>
-                        <th style="text-align:center"><label asp-for="Content: @Model.FirstOrDefault().Content"></label></th>
-                        <th style="text-align:center"><label asp-for="Type: @Model.FirstOrDefault().TypeId"></label></th>
-                        <th style="text-align:center"><label>Select</label></th>
+                        <th colspan="1" style="text-align:center"><label>Number</label></th>
+                        <th colspan="1" style="text-align:center"><label asp-for="@Model.Questions.FirstOrDefault().Content"></label></th>
+                        <th colspan="1" style="text-align:center"><label asp-for="@Model.Questions.FirstOrDefault().TypeId"></label></th>
+                        <th colspan="1" style="text-align:center"><label asp-for="@Model.Questions.FirstOrDefault().CreatedAt"></label></th>
+                        <th colspan="1" style="text-align:center"><label asp-for="@Model.Questions.FirstOrDefault().LastModifiedAt"></label></th>
+                        <th colspan="1" style="text-align:center"><label>Select</label></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var q in Model) 
+                    @foreach (Question q in Model.Questions)
                     {
-                    <tr>
-                        <td>@q.ID</td>
-                        <td>@q.Content</td>
-                        <td>@q.TypeId</td>
-                        <td><input type="checkbox"></td>
-                    </tr>
+                        <tr>
+                            <td style="text-align:center"></td>
+                            <td>@q.Content</td>
+                            <td>@q.TypeId</td>
+                            <td>@q.CreatedAt.ToString("MM/dd/yyyy")</td>
+                            <td>@q.LastModifiedAt.ToString("MM/dd/yyyy")</td>
+                            <td><input type="checkbox" id="question" name="question" value="@q.Content"></td>
+                        </tr>
                     }
                 </tbody>
             </table>
         </p>
-        <!--UNCOMMENT THE BUTTON TAG<button type="submit">--><a asp-area="" asp-controller="SurveyMgmt" asp-action="AddSurvey">Add Survey</a><!--</button>-->
+        <!--UNCOMMENT THE BUTTON TAG<button type="submit">--><!--<a asp-area="" asp-controller="SurveyMgmt" asp-action="AddSurvey">Add Survey</a>--><!--</button>-->
+        <div id="add-button">
+            <input type="button" value="Add Survey" class="btn btn-primary" onclick="addSurvey();" />
+        </div>
     </form>
 </body>
 </html>
+
+<script>
+    //datatables integration
+    $(document).ready(function () {
+
+        $('#questionlist').DataTable();
+    });
+
+    var table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'), text = 'textContent' in document ? 'textContent' : 'innerText';
+    console.log(text);
+    for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + rows[i].children[0][text];
+    }
+    //end of datatables stuff
+
+    function addSurvey() {
+        let checkboxes = document.querySelectorAll('input[name="question"]:checked');
+        let values = [];
+        checkboxes.forEach((checkbox) => {
+            values.push(checkbox.value)
+        });
+        alert(values);
+    }
+</script>
 

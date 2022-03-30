@@ -17,7 +17,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<Y4CIdentityContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("Y4CIdentityContextConnection")));
+                        context.Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddIdentity<Y4CUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddDefaultUI()
