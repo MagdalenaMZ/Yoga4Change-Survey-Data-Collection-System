@@ -9,7 +9,9 @@ using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+
+   // [Authorize(Roles = "Administrator")]
+
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;
