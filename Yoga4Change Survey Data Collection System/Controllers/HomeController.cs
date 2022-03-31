@@ -6,7 +6,9 @@ using Yoga4Change_Survey_Data_Collection_System.Models;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+
    // [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,7 +22,9 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
         {
             return View();
         }
+
        // [Authorize(Roles = "Administrator, Survey Manager")]
+
         public IActionResult QuestionBank()
         {
             return View();

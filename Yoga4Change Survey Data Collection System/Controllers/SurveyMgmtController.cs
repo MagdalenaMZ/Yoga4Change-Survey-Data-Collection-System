@@ -4,10 +4,14 @@ using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
 using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
+using Yoga4Change_Survey_Data_Collection_System.Models.ViewModel;
+using System.Dynamic;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+
    // [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
+
     public class SurveyMgmtController : Controller
     {
         private readonly ISurveyRepository _surveyRepository;
@@ -26,11 +30,14 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             return View();
         }
 
-        //temporary: delete this after testing along with Create view
         public async Task<ViewResult> CreateAsync()
         {
             var questionList = await _questionRepository.GetQuestionListAsync();
-            return View(questionList);
+            //var surveyList = await _surveyRepository.GetSurveyListAsync(); the reference to the survey repo may not be necessary for this action method
+            AddSurveyViewModel viewModel = new AddSurveyViewModel();
+            viewModel.Questions = questionList;
+            //viewModel.Survey = surveyList;
+            return View(viewModel);
         }
 
         public async Task<ViewResult> AddSurveyAsync(Survey survey)

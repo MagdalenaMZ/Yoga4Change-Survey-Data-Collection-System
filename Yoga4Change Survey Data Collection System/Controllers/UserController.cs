@@ -11,7 +11,9 @@ using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+
   // [Authorize(Roles = "Administrator")]
+
     public class UserController : Controller
     {
         UserManager<Y4CUser> userManager;

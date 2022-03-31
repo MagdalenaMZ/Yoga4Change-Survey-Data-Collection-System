@@ -11,7 +11,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
 
         [Key]
         [Display(Name = "ID")]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Name")]
         public string Name { get; set; }
@@ -22,10 +22,9 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
         [Display(Name = "IsPublished")]
         public bool Published { get; set; }
 
-        public Question Questions { get; set; }
-
-        //subclass for question details
+        //public Question Questions { get; set; }
         
+        /* subclass is unnecessary
         public class Question
         {
             public int ID { get; set; }
@@ -34,5 +33,6 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models
             public bool Required { get; set; }
             //NOTE: required property should be changeable on a per-survey basis e.g., a question can be required in one survey but optional in another
         }
+        */
     }
 }

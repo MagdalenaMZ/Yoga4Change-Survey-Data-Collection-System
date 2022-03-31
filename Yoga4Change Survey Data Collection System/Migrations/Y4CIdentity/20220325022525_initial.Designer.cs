@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Data;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Migrations.Y4CIdentity
 {
     [DbContext(typeof(Y4CIdentityContext))]
-    partial class Y4CIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20220325022525_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
