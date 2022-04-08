@@ -10,7 +10,7 @@ using System.Dynamic;
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
 
-   // [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
+   [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
 
     public class SurveyMgmtController : Controller
     {
