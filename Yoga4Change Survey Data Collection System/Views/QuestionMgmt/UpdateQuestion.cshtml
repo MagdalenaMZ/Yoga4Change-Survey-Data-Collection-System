@@ -150,8 +150,22 @@
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].name = `questionsOptions[${ i }]`;
             }
+            var req = required();
 
-            document.getElementById('edit-form').submit();
+            if (req == true) {
+                document.getElementById('edit-form').submit();
+            }
+        }
+
+        function required() {
+            var req = document.getElementById('Content');
+            if (req == null || req.value == "") {
+                alert('Please enter a question');
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         function get(selector) {

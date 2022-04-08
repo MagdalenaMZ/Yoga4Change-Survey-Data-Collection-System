@@ -19,7 +19,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Content" style="font-size: 18.72px; font-weight: bold">Content of the question: </label><br />
-                    <textarea asp-for="Content" placeholder="Type you question here" rows="4" cols="40" required="required"></textarea>
+                    <textarea asp-for="Content" ID="Content" placeholder="Type you question here" rows="4" cols="40" runat="server"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -118,13 +118,29 @@
         }
 
         function handleSubmit() {
+
             var inputs = document.getElementsByClassName('choices');
 
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].name = `questionsOptions[${ i }]`;
             }
 
-            document.getElementById('create-form').submit();
+            var req = requiredContent();
+
+            if (req == true) {
+                document.getElementById('create-form').submit();
+            }
+        }
+
+        function requiredContent() {
+            var req = document.getElementById('Content');
+            if (req == null || req.value == "") {
+                alert('Please enter a question');
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         function get(selector) {
