@@ -19,7 +19,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Areas.Identity.Pages.Account
 {
     
 
-  //[Authorize(Roles = "Administrator")]
+  [Authorize(Roles = "Administrator")]
 
     public class RegisterModel : PageModel
     {
