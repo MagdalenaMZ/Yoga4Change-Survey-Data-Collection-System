@@ -20,6 +20,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models.ViewModel
         public DateTimeOffset CreatedAt { get; set; }
 
         public DateTimeOffset LastModifiedAt { get; set; }
+        public bool Draft { get; set; }
 
         public List<string> QuestionsOptions { get; set; }
 
@@ -28,6 +29,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Models.ViewModel
             return new Question()
             {
                 Content = Content,
+                Draft = Draft,
                 TypeId = TypeId,
                 CreatedAt = CreatedAt,
                 LastModifiedAt = LastModifiedAt

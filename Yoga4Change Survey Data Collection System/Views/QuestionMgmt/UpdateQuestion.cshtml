@@ -58,10 +58,15 @@
                         <button type="button" class="btn btn-primary btn-xs" id="btnAddChoice" onclick="addChoice()">+</button>
                     </div>
                 }
-                    <div id="buttons" class="form-group">
-                        <button type="button" class="btn btn-outline-primary"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
-                        <input type="button" value="Save Question" class="btn btn-primary" onclick="handleSubmit();" />
-                    </div>
+                <div id="checkbox" class="form-group">
+                    <label class="control-label">Check if question not completed:</label><br />
+                    <input asp-for="Draft" type="checkbox" />
+                    <label asp-for="Draft"> Not completed - save as a draft</label><br>
+                </div>
+                <div id="buttons" class="form-group">
+                    <button type="button" class="btn btn-outline-info"> <a asp-controller="QuestionMgmt" asp-action="QuestionBank">Go Back</a></button>
+                    <input type="button" value="Save Question" class="btn btn-outline-success" onclick="handleSubmit();" />
+                </div>
             </form>
         </div>
     </div>
@@ -111,7 +116,7 @@
             inputGroup.appendChild(inputGroupBtn);
             formGroup.appendChild(label);
             formGroup.appendChild(inputGroup);
-            buttons.before(formGroup);
+            checkbox.before(formGroup);
 
             nextIndex++;
         }
@@ -150,8 +155,22 @@
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].name = `questionsOptions[${ i }]`;
             }
+            var req = required();
 
-            document.getElementById('edit-form').submit();
+            if (req == true) {
+                document.getElementById('edit-form').submit();
+            }
+        }
+
+        function required() {
+            var req = document.getElementById('Content');
+            if (req == null || req.value == "") {
+                alert('Please enter a question');
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         function get(selector) {

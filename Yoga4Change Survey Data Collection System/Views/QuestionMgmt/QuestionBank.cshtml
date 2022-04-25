@@ -26,6 +26,7 @@
                     <th colspan="1" style="text-align : center"><label asp-for="@Model.FirstOrDefault().TypeId"></label></th>
                     <th colspan="1" style="text-align : center"><label asp-for="@Model.FirstOrDefault().CreatedAt"></label></th>
                     <th colspan="1" style="text-align : center"><label asp-for="@Model.FirstOrDefault().LastModifiedAt"></label></th>
+                    <th colspan="1" style="text-align : center"><label asp-for="@Model.FirstOrDefault().Draft"></label></th>
                     <th colspan="1" style="text-align : center"><label>Edit</label></th>
                     <th colspan="1" style="text-align : center"><label>Duplicate</label></th>
                     <th colspan="1" style="text-align : center"><label>Delete</label></th>
@@ -40,6 +41,7 @@
                     <td>@r.TypeId.GetDisplayName()</td>
                     <td>@r.CreatedAt.ToString("MM/dd/yyyy")</td>
                     <td>@r.LastModifiedAt.ToString("MM/dd/yyyy")</td>
+                    <td>@r.Draft.ToYesNoString()</td>
                     <td>@Html.ActionLink("Edit", "UpdateQuestion", new { id = r.ID }, new { @class = "btn btn-primary" })</td>
                     <td>@Html.ActionLink("Duplicate", "DuplicateQuestion", new { id = r.ID }, new { @class = "btn btn-success" })</td>
                     <td>@Html.ActionLink("Delete", "DeleteQuestion", new { id = r.ID }, new { @class = "btn btn-danger" })</td>

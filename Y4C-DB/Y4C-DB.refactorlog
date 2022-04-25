@@ -15,10 +15,17 @@
     <Property Name="NewName" Value="Type" />
   </Operation>
   <Operation Name="Rename Refactor" Key="bb85641c-5fc9-4204-99f2-f38f508ad165" ChangeDateTime="12/03/2021 19:18:04">
-    <Property Name="ElementName" Value="[dbo].[Questions].[QuestionType]"/>
+    <Property Name="ElementName" Value="[dbo].[Questions].[QuestionType]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
     <Property Name="ParentElementName" Value="[dbo].[Questions]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="TypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="26eed8fb-3169-449a-bf45-5104a6b8d7d0" ChangeDateTime="04/22/2022 21:07:23">
+    <Property Name="ElementName" Value="[dbo].[Questions].[Complete]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Questions]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Draft" />
   </Operation>
 </Operations>

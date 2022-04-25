@@ -106,6 +106,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             }
 
             existingQuestion.Content = question.Content;
+            existingQuestion.Draft = question.Draft;
             existingQuestion.TypeId = question.TypeId;
             existingQuestion.LastModifiedAt = DateTime.UtcNow;
 
