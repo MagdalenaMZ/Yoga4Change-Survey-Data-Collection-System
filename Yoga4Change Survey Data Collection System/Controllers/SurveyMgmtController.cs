@@ -32,6 +32,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 
         public async Task<ViewResult> CreateAsync()
         {
+            //get reference to question list to display questions to add to a survey
             var questionList = await _questionRepository.GetQuestionListAsync();
             //var surveyList = await _surveyRepository.GetSurveyListAsync(); the reference to the survey repo may not be necessary for this action method
             AddSurveyViewModel viewModel = new AddSurveyViewModel();
