@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yoga4Change_Survey_Data_Collection_System.EntityFramework;
 using Yoga4Change_Survey_Data_Collection_System.Models;
@@ -11,7 +9,7 @@ using System.Dynamic;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
-    [Authorize]
+   [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
     public class SurveyMgmtController : Controller
     {
         private readonly ISurveyRepository _surveyRepository;

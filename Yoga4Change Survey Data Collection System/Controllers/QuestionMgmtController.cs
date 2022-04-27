@@ -13,7 +13,7 @@ using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
-    [Authorize]
+   [Authorize(Roles = "Administrator, Survey Manager")]
     public class QuestionMgmtController : Controller
     {
         private readonly IQuestionRepository _questionRepository;
@@ -106,6 +106,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Controllers
             }
 
             existingQuestion.Content = question.Content;
+            existingQuestion.Draft = question.Draft;
             existingQuestion.TypeId = question.TypeId;
             existingQuestion.LastModifiedAt = DateTime.UtcNow;
 

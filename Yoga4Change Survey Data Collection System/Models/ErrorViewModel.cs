@@ -1,5 +1,3 @@
-using System;
-
 namespace Yoga4Change_Survey_Data_Collection_System.Models
 {
     public class ErrorViewModel

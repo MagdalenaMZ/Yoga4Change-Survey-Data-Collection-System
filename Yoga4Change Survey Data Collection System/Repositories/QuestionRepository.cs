@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace Yoga4Change_Survey_Data_Collection_System.Repositories
 
         public Task<List<Question>> GetQuestionListAsync()
         {
-            return _context.Questions.ToListAsync();
+            return _context.Questions.OrderBy(x => x.Content).ToListAsync();
         }
 
 

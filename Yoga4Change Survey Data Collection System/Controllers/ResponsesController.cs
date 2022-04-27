@@ -5,6 +5,7 @@ using Yoga4Change_Survey_Data_Collection_System.Repositories.Interfaces;
 
 namespace Yoga4Change_Survey_Data_Collection_System.Controllers
 {
+   [Authorize(Roles = "Administrator, Survey Manager, Researcher")]
     public class ResponsesController : Controller
     {
         private readonly IResponseRepository _responseRepository;
